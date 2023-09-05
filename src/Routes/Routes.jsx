@@ -2,6 +2,7 @@ import { Routes, Route } from "react-router-dom";
 import { lazy } from "react";
 import Layout from "../Components/Layout/Layout";
 import LeaveForm from "../Pages/HumanResources/Employees/Leave";
+
 const Dashboard = lazy(() => import("../Pages/Dashboard/dashboard"));
 const GettingThingDone = lazy(() =>
   import("../Pages/Dashboard/GettingThingsDone")
@@ -50,6 +51,7 @@ const FinanceOverview = lazy(() => import("../Pages/Finance/Overview/index"));
 const AccountForm = lazy(() =>
   import("../Pages/Finance/Account/AccountForm/index")
 );
+const Settings = lazy(() => import("../Pages/Settings/index"));
 
 const AllRoutes = () => {
   return (
@@ -96,7 +98,9 @@ const AllRoutes = () => {
           </Route>
           <Route path="ledger" element={<Ledger />} />
         </Route>
+        <Route path="setting" element= {<Settings />} />
       </Route>
+     
       {/* <Route path='/signup' element={<SignUp />} />
     <Route path='/login' element={<Login />} />
     <Route path='/forget' element={<Forget/>}/>

@@ -1,0 +1,148 @@
+.settingMain {
+    margin-top: 30px;
+    .p1 {
+        color: #000;
+        font-family: Poppins;
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: normal; 
+        margin-bottom: 2%;
+        margin-left: 30px;
+    }
+    .p2 {
+        color: #000;
+        font-family: Poppins;
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: normal; 
+        margin-top: 4%;
+        margin-left: 30px; 
+    }
+    .cardDivs{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        .card{
+            background-color: white;
+            height:279px;
+            width: 18%;
+            padding:60px 65px;
+            border-radius:10px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: #FFF;
+            box-shadow: 0px 4px 20px 0px rgba(238, 238, 238, 0.52);
+
+            margin:11px 30px ;
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+        p{
+            font-weight:900;
+            font-size:24px;
+            color:rgba(144, 166, 123, 1);
+        }
+    }
+    .englishAndArabic {
+        padding: 0 25px;
+      display: flex;
+    //   justify-content: space-between;
+      align-items: center;
+      
+      button{
+        border:1px solid rgba(144, 166, 123, 1);
+        padding:10px 0;
+        text-align: center;
+        background-color:white;
+        color: rgba(0, 0, 0, 0.50);
+        font-family: Poppins;
+        font-size: 18px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+        border-radius: 10px;
+        width:12%;
+        margin:0 5px;
+        cursor: pointer;
+        text-decoration: none;
+
+      }
+      
+    }
+    .accessControlDiv{
+        display: flex;
+        justify-content:space-between;
+        align-items: center;
+        padding: 0 25px;
+        margin-top:25px;
+        .p3{
+            color: #000;
+            font-family: Poppins;
+            font-size: 36px;
+            font-style: normal;
+            font-weight: 700;
+            line-height: normal;
+        }
+        .accessBtn{
+            display: flex;
+            height: 56px;
+            flex-shrink: 0;
+            align-items: center;
+            justify-content: space-evenly;
+            width:30%;
+            button{
+                border: 1px solid #90A67B;
+                padding: 15px 10px;
+                text-align: center;
+                background-color:white;
+                font-size:14px;
+                font-weight:400;
+                color:rgba(0,0,0,0.5);
+                border-radius: 10px;
+                width:25%;
+                margin:0 5px;
+                cursor: pointer;
+                box-shadow: 0px 4px 20px 0px rgba(238, 238, 238, 0.52);
+
+
+
+            }
+            .searchDiv {
+                display: flex;
+                align-items: end;
+                border: 1px solid rgba(144, 166, 123, 1);
+                padding: 15px 10px;
+                padding-right: 100px;
+                border-radius: 10px;
+                //   margin-bottom: 20px;
+                background-color: white;
+                input {
+                  background-color: transparent !important;
+                  border: none;
+                  padding-left: 5px;
+                }
+                :focus {
+                  border: none;
+                  outline: none;
+                }
+              }
+              
+        }
+        
+    }
+    .tableDiv{
+        padding:0 25px;
+        margin-top:20px;
+        .mainTable{
+          border-radius:10px;
+          padding:15px 15px;
+          background-color: white;
+          box-shadow: 0px 4px 20px 0px rgba(238, 238, 238, 0.52);
+        }
+      }
+}

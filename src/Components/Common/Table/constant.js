@@ -477,3 +477,84 @@ export const ledgerTableData = [
   },
   
 ]
+
+export const accessControlData = [
+  {
+    roleId: '321',
+    roleName: 'Gammer',
+    accessControl: 'Full Access',
+    status: 'active',
+   
+  },
+  {
+    roleId: '3221',
+    roleName: 'Batman',
+    accessControl: 'Full Access',
+    status: 'active',
+   
+  },
+  {
+    roleId: '31221',
+    roleName: 'Monster',
+    accessControl: 'Full Access',
+    status: 'active',
+   
+  }
+  ,{
+    roleId: '1323',
+    roleName: 'Drug Dealer',
+    accessControl: 'Full Access',
+    status: 'active',
+   
+  },
+  {
+    roleId: '12432',
+    roleName: 'Spy',
+    accessControl: 'Full Access',
+    status: 'active',
+   
+  },
+  {
+    roleId: '3112',
+    roleName: 'Commando',
+    accessControl: 'Full Access',
+    status: 'active',
+   
+  }
+
+]
+
+export const employRolesData = [
+{
+  employId:'1122',
+  employName:'yasir',
+  role:'ceo',
+  status:'active'
+},
+{
+  employId:'12',
+  employName:'ubaid',
+  role:'employee',
+  status:'active'
+},
+{
+  employId:'4554',
+  employName:'client',
+  role:'coding',
+  status:'active'
+},
+{
+  employId:'543',
+  employName:'Dr',
+  role:'love',
+  status:'active'
+},
+{
+  employId:'765',
+  employName:'Tester',
+  role:'testing',
+  status:'active'
+}
+
+
+]
