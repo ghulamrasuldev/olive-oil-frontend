@@ -1,0 +1,317 @@
+/* Style.scss */
+
+.settingMainDiv {
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .p1 {
+    color: #000;
+    font-family: Poppins;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: normal;
+    margin-bottom: 2%;
+    width: 92%;
+  }
+  .formDive {
+padding: 30px 30px; /* Add padding to the formDive div */
+  border-radius: 10px; /* Add border-radius for rounded edges */
+  background-color: white;
+  margin-top: 20px; /* You can adjust the margin-top as needed */
+  width: 93%; /* Adjust the width as needed (e.g., 80% of the container width) */
+
+  /* Center the content horizontally and vertically */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .gridSize {
+
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  }
+  
+  
+  .englishAndArabic {
+    display: flex;
+    margin-bottom: 20px;
+    align-items: start;
+    width: 93%;
+    
+    button {
+      border: 1px solid rgba(144, 166, 123, 1);
+      text-align: center;
+      background-color: white;
+      color: rgba(0, 0, 0, 0.50);
+      font-family: Poppins;
+      font-size: 18px;
+      font-weight: 400;
+      line-height: normal;
+      border-radius: 10px;
+      margin-right: 10px;
+      cursor: pointer;
+      text-decoration: none;
+      width: 134px;
+       height: 56px;
+  
+      &:last-child {
+        margin-right: 0;
+      }
+    }
+    
+  }
+  
+  .formDive {
+    
+    display: flex;
+    flex-direction: column;
+    align-items: stretch; /* Stretch items horizontally */
+    gap: 20px;
+    width: 88%; /* Adjust the max-width as needed */
+  }
+  .profileSection {
+    min-width: 94%;
+    align-items: stretch;
+  }
+  
+  
+  .formSection2 {
+    
+    background-color: white;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    border-radius: 10px;
+    padding: 60px 25px;
+    min-width: 92%;
+    min-height: 109%;
+    
+    justify-content: space-between;
+
+    
+  
+  }
+  .formSection3 {
+    
+    background-color: white;
+    border: 1px solid rgba(0, 0, 0, 0.20);
+    border-radius: 10px;
+    padding: 60px 25px;
+    min-width: 70%;
+
+    justify-content: space-between;
+  }
+  
+  .formSection4 {
+    background-color: white;
+    border: 1px solid rgba(0, 0, 0, 0.20);
+    border-radius: 10px;
+    padding: 60px 25px;
+    min-width: 70%;
+    justify-content: space-between;
+    
+   
+  }
+  .notification {
+    margin-bottom: 1px;
+    flex-grow: 1;
+    
+    justify-content: space-between; // Add space between elements
+    align-items: center;
+    gap: 10px;
+    .div1{
+      margin-bottom: 10px;
+      .p1{
+        margin-bottom: -1px;
+        color: rgba(0, 0, 0, 0.50);
+      font-size: 16px;
+      font-weight: 600;
+      }
+      .insideDiv1{
+        
+        display: flex;
+        align-items: center;
+        justify-content:space-between;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.34);
+        padding-bottom:10px;
+        width: 100%;
+        .p2{
+          color: rgba(0, 0, 0, 0.25);
+      font-size: 13px;
+      font-weight: 900;
+        }
+      }
+    }
+
+    .p4 {
+      color: rgba(0, 0, 0, 0.50);
+      font-size: 16px;
+      font-style: normal;
+      font-weight: 600;
+    }
+    .p5 {
+     
+    color: rgba(0, 0, 0, 0.25);
+    font-size: 12px;
+    font-weight: 600;
+    }
+    .Switch {
+   margin-top: 10px;
+   
+    }
+   
+     }
+     .submitButton {
+      border: 1px solid rgb(144, 166, 123);
+      text-align: center;
+      background-color: white;
+      color: rgba(0, 0, 0, 0.5);
+      font-family: Poppins;
+      font-size: 18px;
+      font-weight: 400;
+      line-height: normal;
+      border-radius: 10px;
+      cursor: pointer;
+      text-decoration: none;
+      width: 134px;
+      height: 56px;
+      float: right;
+      
+    }
+  .formSection1 {
+    
+    background-color: white;
+    border:1px solid rgba(144, 166, 123, 1);
+    border-radius: 10px;
+    padding: 20px; /* Adjust the padding as needed */
+    width: 95%; /* Set it to 100% to fill the available width */
+
+  }
+  .sectionHeading {
+    color: rgba(0, 0, 0, 0.50);
+    font-family: Poppins;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+  }
+  .titlePlace {
+    background-color: black;
+  }
+  .formContent {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .formField {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  
+    label {
+      font-size: 16px;
+      font-weight: 600;
+    }
+  
+    input {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid rgba(144, 166, 123, 1);
+      border-radius: 5px;
+      font-size: 16px;
+    }
+    
+  }
+    .selectDivSetting {
+        
+        width: 98%;
+        margin-top:10px;
+        .p3 {
+          color: rgba(0, 0, 0, 0.55);
+          font-size: 14px;
+          font-weight: 400;
+          margin-bottom:3px;
+        }
+        .css-13cymwt-control{
+          width: 100%;
+          padding: 10px;
+          border-radius: 6px;
+          font-size: 16px;
+          border:1px solid rgba(144, 166, 123, 1)!important;
+        }
+      }
+  
+  .field {
+    margin-top: 20px;
+    input {
+      width: 95%;
+      padding: 15px 10px;
+      border: 1px solid rgba(144, 166, 123, 1);
+      font-size: 14px;
+      font-family: 400;
+      border-radius: 10px;
+    }
+    :focus {
+      outline: none;
+    }
+   
+    .p3 {
+        color: rgba(0, 0, 0, 0.55);
+        font-size: 14px;
+        font-weight: 400;
+        margin-bottom:3px;
+      }
+     
+  }
+  .notificationButtons {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  
+    label {
+      font-size: 16px;
+      font-weight: 600;
+    }
+  
+    .notificationButton {
+      padding: 10px 15px;
+      border: 1px solid rgba(144, 166, 123, 1);
+      border-radius: 10px;
+      font-size: 16px;
+      cursor: pointer;
+  
+      &.active {
+        background-color: rgba(144, 166, 123, 1);
+        color: white;
+      }
+    }
+  }
+  
+  .submitAllFormsButton {
+    margin-top: 20px;
+    padding: 10px 30px;
+    background-color: rgba(144, 166, 123, 1);
+    border: none;
+    border-radius: 10px;
+    font-size: 18px;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+  
+    &:hover {
+      background-color: #6e813b;
+    }
+    .formContent2 {
+      display: flex;
+      flex-direction: row; // Ensure elements are in a row
+      justify-content: space-between; // Push the elements to the edges
+      align-items: center; // Vertically center elements
+      gap: 10px; // Add some spacing between elements
+    }
+   
+  }
+  

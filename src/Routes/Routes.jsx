@@ -51,7 +51,7 @@ const FinanceOverview = lazy(() => import("../Pages/Finance/Overview/index"));
 const AccountForm = lazy(() =>
   import("../Pages/Finance/Account/AccountForm/index")
 );
-const Settings = lazy(() => import("../Pages/Settings/index"));
+const Settings = lazy(() => import("../Pages/Settings/SettingForm/index"));
 
 const AllRoutes = () => {
   return (
