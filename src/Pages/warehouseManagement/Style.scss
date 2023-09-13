@@ -53,6 +53,20 @@
                 margin:0 5px;
                 cursor: pointer;
             }
+            a {
+              border:1px solid rgba(144, 166, 123, 1);
+              padding:10px 0;
+              text-align: center;
+              background-color:white;
+              font-size:14px;
+              font-weight:400;
+              color:rgba(0,0,0,0.5);
+              border-radius: 10px;
+              width:25%;
+              margin:0 5px;
+              cursor: pointer;
+              text-decoration: none;
+            }
             .searchDiv {
                 display: flex;
                 align-items: center;

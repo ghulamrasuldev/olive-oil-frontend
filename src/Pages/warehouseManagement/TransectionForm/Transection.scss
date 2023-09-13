@@ -1,0 +1,251 @@
+.transectionForm {
+  z-index: 1 !important;
+  background-color: white;
+  padding: 30px;
+  background-color: white;
+  width: 40%;
+  border-radius: 10px;
+  position: absolute;
+  right: 29%;
+  .formDiv1 {
+    display: flex;
+    justify-content: space-between;
+    .p1 {
+      color: #000;
+      font-family: Poppins;
+      font-size: 24px;
+      font-style: normal;
+      font-weight: 500;
+      line-height: normal;
+
+    }
+    .icon {
+      cursor: pointer;
+    }
+  }
+  
+  .toggleDiv1 {
+    display: flex;
+    padding: 15px 10px;
+    margin-top: 20px;
+    width: 100%;
+    .nameDiv1 {
+    width: 100%;
+
+      .p5 {
+        color: rgba(0, 0, 0, 0.55);
+        font-size: 14px;
+        font-weight: 400;
+        margin-bottom: 3px;
+      }
+      .inputDiv1 {
+        display: flex;
+        align-items: center;
+    
+
+        .nameDiv1 {
+          width: 100%;
+          input {
+            width: 90%;
+            padding: 8px 5px;
+            border: 1px solid rgba(144, 166, 123, 1);
+            font-size: 14px;
+            font-family: 400;
+            border-radius: 10px;
+          }
+          :focus {
+            outline: none;
+          }
+        }
+        .nameDivv1 {
+          width: 50%;
+          input {
+            width: 80%;
+            padding: 15px 10px;
+         
+            font-size: 14px;
+            font-family: 400;
+            border-radius: 10px;
+          }
+          :focus {
+            outline: none;
+          }
+        }
+      }
+    }
+    .cnic {
+      margin-top: 20px;
+      input {
+        width: 90%;
+        padding: 15px 10px;
+        border: 1px solid rgba(144, 166, 123, 1);
+        font-size: 14px;
+        font-family: 400;
+        border-radius: 10px;
+      }
+      :focus {
+        outline: none;
+      }
+    }
+    .picAndphone {
+      margin-top: 20px;
+      display: flex;
+      align-items: center;
+      .picDiv {
+        width: 50%;
+        .p6 {
+          color: rgba(0, 0, 0, 0.55);
+          font-size: 14px;
+          font-weight: 400;
+        }
+        .imgDiv {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          border: 1px solid rgba(144, 166, 123, 1);
+          border-radius: 10px;
+          padding: 10px 10px;
+          width: 75%;
+          margin-top: 10px;
+          input {
+            border: none;
+            color: rgba(0, 0, 0, 0.25);
+            font-size: 14px;
+            font-size: 400;
+          }
+          :focus {
+            outline: none;
+          }
+          img {
+            height: 30px;
+            cursor: pointer;
+          }
+        }
+      }
+      .phoneDiv {
+        width: 50%;
+        .p6 {
+          color: rgba(0, 0, 0, 0.55);
+          font-size: 14px;
+          font-weight: 400;
+        }
+        .phoneIn {
+          width: 77%;
+          border: 1px solid rgba(144, 166, 123, 1) !important;
+          padding: 15px !important;
+          border-radius: 10px !important;
+          margin-top: 10px;
+        }
+      }
+    }
+    .address {
+      margin-top: 20px;
+      input {
+        width: 90%;
+        padding: 15px 10px;
+        border: 1px solid rgba(144, 166, 123, 1);
+        font-size: 14px;
+        font-family: 400;
+        border-radius: 10px;
+      }
+      :focus {
+        outline: none;
+      }
+    }
+    .customerType{
+        margin-top: 20px;
+        input {
+          width: 90%;
+          padding: 15px 10px;
+          border: 1px solid rgba(144, 166, 123, 1);
+          font-size: 14px;
+          font-family: 400;
+          border-radius: 10px;
+        }
+        :focus {
+          outline: none;
+        }
+    }
+    .selectDiv {
+        width: 93%;
+        margin-top:10px;
+        // border:1px solid red;
+        .p3 {
+          color: rgba(0, 0, 0, 0.55);
+          font-size: 14px;
+          font-weight: 400;
+          margin-bottom:3px;
+        }
+      }
+  }
+  .buttons1 {
+    float: right;
+    margin-top:15px;
+    display: flex;
+    .btnCreate1 {
+      padding: 10px 15px;
+      text-align: center;
+      border: none;
+      border-radius: 8px;
+      background-color: rgba(144, 166, 123, 1);
+      font-size: 18px;
+      font-weight: 700;
+      margin: 0 5px;
+      color: white;
+      cursor: pointer;
+      width: 40%;
+    }
+    .btnClose1 {
+      padding: 10px 15px;
+      width: 40%;
+      border: 1px solid rgb(144, 166, 123);
+    text-align: center;
+    background-color: white;
+    font-size: 18px;
+    font-weight: 700;
+    color: rgba(0, 0, 0, 0.5);
+    border-radius: 8px;
+    margin: 0 5px;
+    cursor: pointer;
+  text-decoration: none;
+    }
+  }
+}
+.css-1u9des2-indicatorSeparator {
+  // display: none!important;
+  background: none !important;
+}
+.css-b62m3t-container {
+    // padding:15px 10px;
+    //   margin-top: 10px;
+    width: 100%!important;
+}
+.css-13cymwt-control {
+    padding: 6px!important;
+  border: 1px solid rgba(144, 166, 123, 1) !important;
+  border-radius: 10px !important;
+}
+:focus {
+  outline: none !important;
+}
+.react-select__control:active, /* Target the control when focused */
+.react-select__control:hover, /* Target the control on hover (optional) */
+.react-select__indicator:active, /* Target the indicator (arrow) when focused */
+.react-select__indicator:hover {
+    outline: none!important;
+    border:2px solid #3cff00!important; /* Change this to your desired border color */
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25); /* Add a box shadow if desired */
+  }
+.PhoneInput {
+  padding: none !important;
+}
+.PhoneInputInput {
+  border: none !important;
+  //   width:10%!important;
+}
+
+@media (min-width: 1800px) {
+    .selectDiv {
+      width: 92%!important;
+    }
+  }

@@ -26,6 +26,8 @@ const CanBottleForm = lazy(() =>
 const SparePartsForm = lazy(() =>
   import("../Pages/warehouseManagement/SpareParts/index")
 );
+const transectionForm = lazy(() => 
+import("../Pages/warehouseManagement/TransectionForm/index"))
 const HumanResource = lazy(() => import("../Pages/HumanResources/index"));
 const Employees = lazy(() => import("../Pages/HumanResources/Employees/index"));
 const Overview = lazy(() => import("../Pages/HumanResources/Overview"));
@@ -73,6 +75,7 @@ const AllRoutes = () => {
         <Route path="/warehouse-management" element={<WareHouse />}>
           <Route path="can-bottle" element={<CanBottleForm />} />
           <Route path="spare-parts" element={<SparePartsForm />} />
+          <Route path="transection-form" element={<transectionForm />} />
         </Route>
         <Route path="/oil-storage" element={<OilStorage />} />
         <Route path="/human-resources" element={<HumanResource />}>
