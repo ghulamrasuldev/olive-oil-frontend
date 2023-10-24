@@ -49,12 +49,14 @@ export default function AddParts() {
   const [selectedImageUrl, setSelectedImageUrl] = useState("");
   const reloadSparePart = useSelector((state) => state.auth.reloadOrderBill);
   const dispatch = useDispatch();
-
+  const [loginUser, setLoginUser] = useState("");
   const [formData, setFormData] = useState({
     amount: "",
     unit: "",
     sparePart: "",
     sparePartImage: "",
+    admin: "",
+    productId:""
   });
   const [formDataError, setFormDataError] = useState({
     amount: "",
@@ -62,7 +64,22 @@ export default function AddParts() {
     sparePart: "",
   });
 
-  useEffect(() => {}, [formData]);
+  useEffect(() => {
+    setFormData({
+      ...formData,
+      admin: loginUser,
+    });
+  }, [loginUser]);
+  useEffect(() => {
+    setLoginUser(localStorage.getItem("userName"));
+  }, [formData]);
+
+  const parts = useSelector((state) => state.partData);
+  const partOptions = parts.partData.map((part) => ({
+    value: part.objectId,
+    label: part.partName,
+  }));
+
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -103,11 +120,13 @@ export default function AddParts() {
       unit: "",
       sparePart: "",
       sparePartImage: "",
+      productId:""
     });
     setFormDataError({
       amount: "",
       sparePart: "",
     });
+    setLoginUser("");
   };
 
   const handlePartChange = async (selectedOption) => {
@@ -119,9 +138,11 @@ export default function AddParts() {
       });
     }
     const partValue = selectedOption.label;
+    const productID = selectedOption.value;
     setFormData((prevData) => ({
       ...prevData,
       sparePart: partValue,
+      productId:productID
     }));
 
     const objectId = selectedOption.value;
@@ -132,7 +153,7 @@ export default function AddParts() {
       {}
     );
     if (response.success) {
-      const Unit = response.data.unit;
+      const Unit = response.data.Unit;
       const sparePartImage = response.data.image;
       setFormData((prevData) => ({
         ...prevData,
@@ -142,11 +163,12 @@ export default function AddParts() {
     }
   };
 
+ 
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       const authToken = localStorage.getItem("authToken");
-      console.log(formData);
       const requiredField = ["amount", "sparePart"];
       const fieldError = {};
       requiredField.forEach((field) => {
@@ -183,11 +205,6 @@ export default function AddParts() {
     }
   };
 
-  const parts = useSelector((state) => state.partData);
-  const partOptions = parts.partData.map((part) => ({
-    value: part.objectId,
-    label: part.partName,
-  }));
   return (
     <div className="partsMain">
       <Tooltip title="Add New" position="top">

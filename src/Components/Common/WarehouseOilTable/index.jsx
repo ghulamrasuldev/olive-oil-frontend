@@ -58,16 +58,21 @@ const WarehouseOilTable = ({ searchVal, data, address, check }) => {
         if (response.success) {
           if (response.data.length > 0) {
             const partData = response.data.map((item) => ({
-              partName: item.partName,
+              partName: item.SparePart,
               objectId: item._id,
             }));
             dispatch(setPartData(partData));
           }
         }
-        const getPart = await apiService('GET', '/spareParts/get/spare-part-amount', {}, {});
+        const getPart = await apiService(
+          "GET",
+          "/spareParts/get/spare-part-amount",
+          {},
+          {}
+        );
         if (getPart.success) {
-          setRows(getPart.data||[]);
-          setFilterData(getPart.data||[]);
+          setRows(getPart.data || []);
+          setFilterData(getPart.data || []);
           setLoading(false);
         }
       }
@@ -76,8 +81,7 @@ const WarehouseOilTable = ({ searchVal, data, address, check }) => {
     }
   };
 
-
-  useEffect(() => {},[rows]);
+  useEffect(() => {}, [rows]);
 
   useEffect(() => {
     getOrderBill();
@@ -86,12 +90,11 @@ const WarehouseOilTable = ({ searchVal, data, address, check }) => {
   useEffect(() => {
     searchFilter();
   }, [searchVal]);
-  
 
   const reloadData = () => {
     getOrderBill();
   };
-  const notRequired = ["_id", "__v","date"];
+  const notRequired = check ? ["_id", "__v", "date"] : ["_id", "__v","ProductId"];
   const allTableHeaders = Object.keys(rows[0] || {});
   const tableHeaders = allTableHeaders.filter(
     (field) => !notRequired.includes(field)
@@ -115,6 +118,20 @@ const WarehouseOilTable = ({ searchVal, data, address, check }) => {
     dispatch(openEditStock());
     dispatch(openEditOilStock());
   };
+
+  function formatDate(dateString) {
+    const options = {
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit',
+    };
+  
+    const date = new Date(dateString);
+    return date.toLocaleDateString('en-GB', options);
+  }
 
   return (
     <TableContainer>
@@ -168,12 +185,15 @@ const WarehouseOilTable = ({ searchVal, data, address, check }) => {
                       borderBottomLeftRadius: cellIndex === 0 ? "10px" : "0px",
                     }}
                   >
-                    {/* {cellValue === "Reason" && row["Reason"] !== "New Inventory"
-                    ? `linked order ${row[cellValue]}`
-                    : row[cellValue]} */}
-                    {/* {row[cellValue]} */}
-                    {cellValue === "sparePart" && check === false ? (
-                      <img src={`${row.sparePart}`} alt="Image" height={30}/>
+                    {/* {cellValue === "SparePart" && check === false ? (
+                      <img src={`${row.SparePart}`} alt="Image" height={30}/>
+                    ) : (
+                      row[cellValue]
+                    )} */}
+                    {cellValue === "date" ? (
+                      formatDate(row[cellValue])
+                    ) : cellValue === "SparePart" && check === false ? (
+                      <img src={`${row.SparePart}`} alt="Image" height={30} />
                     ) : (
                       row[cellValue]
                     )}
@@ -196,7 +216,11 @@ const WarehouseOilTable = ({ searchVal, data, address, check }) => {
                     <DeletePopUp
                       circleIcon={false}
                       id={row["_id"]}
-                      url={check?"/stock/delete-bill":"/spareParts/delete/stock/spare-part"}
+                      url={
+                        check
+                          ? "/stock/delete-bill"
+                          : "/spareParts/delete/stock/spare-part"
+                      }
                       reloadData={reloadData}
                     />
                   </div>
