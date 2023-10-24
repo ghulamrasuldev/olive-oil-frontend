@@ -14,6 +14,8 @@ import Camera from "../../../assets/icons/camera.png";
 import { AiOutlineCloseCircle } from "react-icons/ai";
 import { ErrorMessage, SuccessMessage } from "../../../Helper/Message";
 import apiService from "../../../Services/apiService";
+import { useDispatch, useSelector } from "react-redux";
+import { ReloadProductTable } from "../../../Redux/slice/authSlice";
 
 const style = {
   position: "absolute",
@@ -48,16 +50,22 @@ export default function PartsForm() {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const partImg = useRef(null);
+  const dispatch = useDispatch();
+  const LoginAdmin=localStorage.getItem('userName')
   const [selectedImageUrl, setSelectedImageUrl] = useState("");
   const [formData, setFormData] = useState({
     partName: "",
     unit: "",
     selectedImg: "",
+    quantity: '',
+    admin:LoginAdmin
   });
   const [formDataError, setFormDataError] = useState({
     partName: "",
     unit: "",
   });
+
+  const reloadProductTable = useSelector((state) => state.auth.reloadProductTable);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -138,6 +146,7 @@ export default function PartsForm() {
       partName: "",
       unit: "",
       selectedImg: "",
+      quantity:'',
     });
     setFormDataError({
       partName: "",
@@ -166,15 +175,11 @@ export default function PartsForm() {
       const DataToSend = new FormData();
       DataToSend.append("sparePart", formData.partName);
       DataToSend.append("unit", formData.unit);
+      DataToSend.append("quantity", formData.quantity);
+      DataToSend.append("admin", formData.admin);
       if (formData.selectedImg) {
         DataToSend.append("image", formData.selectedImg);
       }
-
-
-      for (const [key, value] of DataToSend.entries()) {
-        console.log(key, value);
-      }
-
       const response = await apiService(
         "POST",
         "/spareParts/add/spare-parts",
@@ -186,7 +191,9 @@ export default function PartsForm() {
 
       if (response.success) {
         SuccessMessage(response.message);
+        dispatch(ReloadProductTable(!reloadProductTable))
         handleCancel();
+        
       } else {
         ErrorMessage(response.message);
         handleCancel();

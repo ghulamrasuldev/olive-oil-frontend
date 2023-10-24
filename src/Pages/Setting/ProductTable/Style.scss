@@ -1,0 +1,45 @@
+// Styling for header cells
+.MuiTableCell-head {
+    background-color: rgba(144, 166, 123, 1) !important;
+    text-align: center !important;
+    font-size: 20px !important;
+    font-weight: 400 !important;
+    border:none!important;
+  }
+  
+  
+  .MuiTableBody-root tr.MuiTableRow-root:nth-of-type(even) {
+    background-color: rgba(
+      203,
+      217,
+      173,
+      1
+    ) !important; // You can adjust this color
+    border-radius:10px!important;
+  }
+  
+  // Styling for body cells
+  .MuiTableCell-body {
+    text-align: center !important;
+    font-size: 12px !important;
+    font-weight: 300 !important;
+    color: rgba(0, 0, 0, 0.55) !important;
+    border:none!important;
+    cursor: pointer;
+  }
+  
+  .mainActionsProduct{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      .circle{
+          padding:5px;
+        //   margin:2px;
+          height:20px;
+          width: 20px;
+          border-radius:50%;
+          img{
+            margin-left:2px;
+          }
+      }
+  }
