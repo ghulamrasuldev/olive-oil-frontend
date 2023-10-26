@@ -6,7 +6,7 @@ import Modal from "@mui/material/Modal";
 import "./Style.scss";
 import Slider from "../../Slider/slider";
 import { Tooltip } from "@mui/material";
-import Watch from "../../../../assets/icons/Watch.png";
+import Watch from "../../../../assets/icons/watch.png";
 import Theme from "../../../../Theme/Theme";
 import apiService from "../../../../Services/apiService";
 import { ErrorMessage, SuccessMessage } from "../../../../Helper/Message";

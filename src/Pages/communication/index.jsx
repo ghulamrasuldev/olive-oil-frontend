@@ -1,7 +1,7 @@
 import React from "react";
 import "./Style.scss";
 import NewM from "../../assets/icons/newMessage.png";
-import VideoC from "../../assets/icons/videoCall.png";
+import VideoC from "../../assets/icons/videocall.png";
 import AudioC from "../../assets/icons/audioCall.png";
 import Profile from "../../assets/icons/profileN.png";
 import Send from "../../assets/icons/send.png";
