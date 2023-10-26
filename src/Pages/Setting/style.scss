@@ -1,3 +1,11 @@
 .mainSetting{
     padding:25px;
+    .productTable{
+        margin:20px 0;
+        background-color: white;
+        padding:15px;
+        border-radius:10px;
+        height:400px;
+        overflow-y: auto;
+    }
 }

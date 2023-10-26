@@ -18,6 +18,7 @@ import Adjustment from "./Adjustment";
 const WareHouse = () => {
   const [searchBar, setSearchBar] = useState();
   const [showDelete, setShowDelete] = useState(false);
+  const [selectedLink, setSelectedLink] = useState("CanAndBottle");
   const isEditStockOpen = useSelector(
     (state) => state.selectedStock.isEditStockOpen
   );
@@ -34,37 +35,23 @@ const WareHouse = () => {
       </Helmet>
       <div className="wareHouseMain">
         <div className="bottleAndSpare">
-          <Link to="can-and-bottles">Can And Bottle</Link>
-          <Link to="spare-parts">Spare Parts</Link>
+          <Link
+            to="can-and-bottles"
+            className={
+              selectedLink === "CanAndBottle" ? "selected" : "notSelected"
+            }
+            onClick={() => setSelectedLink("CanAndBottle")}
+          >
+            Can And Bottle
+          </Link>
+          <Link to="spare-parts" className={
+              selectedLink === "SparePart" ? "selected" : "notSelected"
+            }
+            onClick={() => setSelectedLink("SparePart")}>Spare Parts</Link>
         </div>
-        {/* <div className="graphs">
-          <ProductionGraph />
-        </div>
-        <div className="inStockDiv">
-          <p className="p1">In Stock</p>
-          <div className="stockBtn">
-            <Adjustment />
-            <TransactionForm />
-            <CustomSearchInput
-              placeholder="search"
-              onSearchChange={setSearchBar}
-              iconShow={true}
-            />
-          </div>
-        </div>
-        <div className="tableDiv">
-          <div className="mainTable">
-            <WarehouseOilTable
-              searchVal={searchBar}
-              // data={WarehouseOilTableData}
-              setShowDelete={setShowDelete}
-              address={address}
-            />
-          </div>
-        </div> */}
       </div>
       <div>
-        <Outlet/>
+        <Outlet />
       </div>
     </div>
   );

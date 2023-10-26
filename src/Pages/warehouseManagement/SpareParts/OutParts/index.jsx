@@ -29,9 +29,7 @@ const style = {
   p: 4,
 };
 
-
-
-export default function AddParts() {
+export default function OutParts() {
   const navigation = useNavigate();
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
@@ -41,18 +39,21 @@ export default function AddParts() {
   const reloadSparePart = useSelector((state) => state.auth.reloadOrderBill);
   const dispatch = useDispatch();
   const [loginUser, setLoginUser] = useState("");
+  const [availableAmount, setAvailableAmount] = useState("");
   const [formData, setFormData] = useState({
     amount: "",
     unit: "",
     sparePart: "",
     sparePartImage: "",
     admin: "",
-    productId:""
+    productId: "",
+    customerName: "",
   });
   const [formDataError, setFormDataError] = useState({
     amount: "",
     unit: "",
     sparePart: "",
+    customerName: "",
   });
 
   useEffect(() => {
@@ -70,7 +71,6 @@ export default function AddParts() {
     value: part.objectId,
     label: part.partName,
   }));
-
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -111,13 +111,16 @@ export default function AddParts() {
       unit: "",
       sparePart: "",
       sparePartImage: "",
-      productId:""
+      productId: "",
+      customerName: "",
     });
     setFormDataError({
       amount: "",
       sparePart: "",
+      customerName: "",
     });
     setLoginUser("");
+    setAvailableAmount("");
   };
 
   const handlePartChange = async (selectedOption) => {
@@ -133,7 +136,7 @@ export default function AddParts() {
     setFormData((prevData) => ({
       ...prevData,
       sparePart: partValue,
-      productId:productID
+      productId: productID,
     }));
 
     const objectId = selectedOption.value;
@@ -146,6 +149,8 @@ export default function AddParts() {
     if (response.success) {
       const Unit = response.data.Unit;
       const sparePartImage = response.data.image;
+      const availableQuantity = response.data.Quantity;
+      setAvailableAmount(availableQuantity);
       setFormData((prevData) => ({
         ...prevData,
         unit: Unit,
@@ -154,13 +159,11 @@ export default function AddParts() {
     }
   };
 
- 
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       const authToken = localStorage.getItem("authToken");
-      const requiredField = ["amount", "sparePart"];
+      const requiredField = ["amount", "sparePart", "customerName"];
       const fieldError = {};
       requiredField.forEach((field) => {
         if (!formData[field]) {
@@ -174,21 +177,26 @@ export default function AddParts() {
         }));
         return;
       }
-      const response = await apiService(
-        "POST",
-        "/spareParts/add/spare-part-amount",
-        {
-          "x-usertoken": authToken,
-        },
-        formData
-      );
-      dispatch(ReloadOrderBill(!reloadSparePart));
-      if (response.success) {
-        SuccessMessage(response.message);
-        handleCancel();
+      if (availableAmount > 0) {
+        const response = await apiService(
+          "POST",
+          "/spareParts/add/spare-part-amount",
+          {
+            "x-usertoken": authToken,
+          },
+          formData
+        );
+        dispatch(ReloadOrderBill(!reloadSparePart));
+        if (response.success) {
+          SuccessMessage(response.message);
+          handleCancel();
+        } else {
+          ErrorMessage(response.message);
+          handleCancel();
+        }
       } else {
-        ErrorMessage(response.message);
         handleCancel();
+        ErrorMessage("Spare part is out of stock!!!");
       }
     } catch (error) {
       console.log("apiError", error);
@@ -196,11 +204,12 @@ export default function AddParts() {
     }
   };
 
+  useEffect(() => {}, [availableAmount]);
   return (
-    <div className="partsMain">
+    <div className="outPartsMain">
       <Tooltip title="Add New" position="top">
-        <Link to="add-parts" onClick={() => handleOpen()}>
-          + Add New
+        <Link to="out-parts" onClick={() => handleOpen()}>
+          Stock Out
         </Link>
       </Tooltip>
       <Modal
@@ -218,9 +227,20 @@ export default function AddParts() {
       >
         <Fade in={open}>
           <Box sx={style}>
-            <div className="partsFormMain">
+            <div className="outPartsFormMain">
               <div className="formDiv1">
-                <p className="p1">Add Amount</p>
+                <div>
+                  <p className="p1">Stock Out</p>
+                  <p
+                    className={
+                      availableAmount === "0" ? "vibrate" : "availableAmountP"
+                    }
+                  >
+                    {availableAmount
+                      ? `Available amount of the stock ${availableAmount}`
+                      : null}
+                  </p>
+                </div>
                 <IoMdClose
                   color="black"
                   size={20}
@@ -245,6 +265,27 @@ export default function AddParts() {
                           )}
                           onChange={handlePartChange}
                           options={partOptions}
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <div className="nameDiv1">
+                    <div className="textAndError">
+                      <p className="p5">Customer Name</p>
+                      {formDataError.customerName && (
+                        <span className="error">
+                          {formDataError.customerName}
+                        </span>
+                      )}
+                    </div>
+                    <div className="inputDiv1">
+                      <div className="nameDiv1">
+                        <input
+                          type="text"
+                          name="customerName"
+                          placeholder="Customer's Name"
+                          value={formData.customerName}
+                          onChange={handleInputChange}
                         />
                       </div>
                     </div>

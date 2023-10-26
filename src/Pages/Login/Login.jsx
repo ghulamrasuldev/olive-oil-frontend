@@ -212,9 +212,6 @@ const Login = () => {
           </div>
         </div>
           </div>
-          {/* <div>
-              <Outlet/>
-          </div> */}
     </div>
   );
 };

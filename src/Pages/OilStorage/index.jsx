@@ -45,6 +45,7 @@ const OilStorage = () => {
               data={WarehouseOilTableData}
               setShowDelete={setShowDelete}
               address={address}
+              check={false}
             />
           </div>
         </div>
