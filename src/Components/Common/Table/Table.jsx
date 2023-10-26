@@ -8,7 +8,7 @@ import TableRow from "@mui/material/TableRow";
 import "./Style.scss";
 import Tick from "../../../assets/icons/tick1.png";
 import Delete from "../../../assets/icons/delete.png";
-import Watch from "../../../assets/icons/Watch.png";
+import Watch from "../../../assets/icons/watch.png";
 import Theme from "../../../Theme/Theme";
 import { tableData } from "./constant";
 import QrModal from "../../../Pages/orderManagement/QRmodal/QrModal";
