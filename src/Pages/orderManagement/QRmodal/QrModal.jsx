@@ -4,7 +4,7 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import "./Style.scss";
-import Qrimg from "../../../assets/icons/Qrcode.png";
+import Qrimg from "../../../assets/icons/QRCode.png";
 import Print from "../../../assets/icons/print.png";
 import QRCode from "qrcode.react";
 import html2pdf from "html2pdf.js";
