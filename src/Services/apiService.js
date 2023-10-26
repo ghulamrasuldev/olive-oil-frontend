@@ -6,6 +6,7 @@ import { ApiError } from '../Helper/ApiError';
 
 const apiService = async (method, url, headers, data) => {
   try {
+    console.log(`${local_Url}${base_Url}${url}`);
     const response = await axios({
       method,
       url:`${local_Url}${base_Url}${url}`,
