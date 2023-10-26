@@ -1,0 +1,237 @@
+.outPartsMain {
+  a {
+    padding: 5px 15px;
+    width: 40%;
+    border: 1px solid rgb(144, 166, 123);
+    text-align: center;
+    background-color: white;
+    font-size: 18px;
+    font-weight: 700;
+    color: rgba(0, 0, 0, 0.5);
+    border-radius: 8px;
+    margin: 0 5px;
+    cursor: pointer;
+    text-decoration: none;
+  }
+}
+.outPartsFormMain {
+  .formDiv1 {
+    display: flex;
+    justify-content: space-between;
+    .p1 {
+      color: #000;
+      font-family: Poppins;
+      font-size: 24px;
+      font-style: normal;
+      font-weight: 500;
+      line-height: normal;
+    }
+  
+    .availableAmountP {
+      color: rgba(144, 166, 123, 1);
+      font-family: Poppins;
+      font-size: 15px;
+      font-style: normal;
+      font-weight: 500;
+      line-height: normal;
+    }
+    /* Add this CSS class for vibrating animation */
+    .vibrate {
+      color: #ff0101;
+      font-family: Poppins;
+      font-size: 15px;
+      font-style: normal;
+      font-weight: 500;
+      line-height: normal;
+      animation: vibrate 0.3s infinite;
+    }
+
+    @keyframes vibrate {
+      0% {
+        transform: translate(0);
+      }
+      25% {
+        transform: translateX(2px);
+      }
+      50% {
+        transform: translateX(0);
+      }
+      75% {
+        transform: translateX(-2px);
+      }
+      100% {
+        transform: translateX(0);
+      }
+    }
+
+    .icon {
+      cursor: pointer;
+    }
+  }
+
+  .togglePartsDiv {
+    display: flex;
+    padding: 15px 10px;
+    // margin-top: 10px;
+    width: 100%;
+
+    .nameDiv1 {
+      width: 100%;
+      .textAndError {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        .error {
+          color: red;
+          font-size: 12px;
+        }
+
+        .p5 {
+          color: rgba(0, 0, 0, 0.55);
+          font-size: 14px;
+          font-weight: 400;
+          margin-bottom: 3px;
+        }
+      }
+      .inputDiv1 {
+        display: flex;
+        align-items: center;
+
+        .nameDiv1 {
+          width: 100%;
+          input {
+            width: 90%;
+            padding: 8px 5px;
+            border: 1px solid rgba(144, 166, 123, 1);
+            font-size: 14px;
+            font-family: 400;
+            border-radius: 10px;
+          }
+          :focus {
+            outline: none;
+          }
+        }
+        .css-13cymwt-control {
+          border: 1px solid rgba(144, 166, 123, 1);
+          padding: 1px !important;
+          font-size: 12px !important;
+          border-radius: 10px !important;
+        }
+        .css-b62m3t-container {
+          width: 94% !important;
+        }
+        .css-1u9des2-indicatorSeparator {
+          width: 0 !important;
+        }
+        .nameDivv1 {
+          width: 50%;
+          input {
+            width: 80%;
+            padding: 15px 10px;
+            font-size: 14px;
+            font-family: 400;
+            border-radius: 10px;
+          }
+          :focus {
+            outline: none;
+          }
+        }
+      }
+    }
+
+    .selectDiv {
+      width: 93%;
+      margin-top: 10px;
+      // border:1px solid red;
+      .p3 {
+        color: rgba(0, 0, 0, 0.55);
+        font-size: 14px;
+        font-weight: 400;
+        margin-bottom: 3px;
+      }
+    }
+  }
+  .selectedImgDiv {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .picDiv {
+      width: 50%;
+      padding: 0 10px;
+      .p6 {
+        color: rgba(0, 0, 0, 0.55);
+        font-size: 14px;
+        font-weight: 400;
+      }
+      .imgDiv {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        border: 1px solid rgba(144, 166, 123, 1);
+        border-radius: 10px;
+        padding: 5px 5px;
+        width: 90%;
+        margin-top: 10px;
+        input {
+          border: none;
+          color: rgba(0, 0, 0, 0.25);
+          font-size: 14px;
+          font-size: 400;
+        }
+        :focus {
+          outline: none;
+        }
+        img {
+          height: 30px;
+          cursor: pointer;
+        }
+      }
+    }
+    .selectedImg {
+      img {
+        height: 100px;
+        width: 100px;
+      }
+      .removeIcon {
+        position: absolute;
+        top: 0px;
+        right: 0px;
+        cursor: pointer;
+        color: red;
+        font-size: 18px;
+      }
+    }
+  }
+  .buttons1 {
+    float: right;
+    margin-top: 15px;
+    display: flex;
+    .btnCreate1 {
+      padding: 5px 15px;
+      text-align: center;
+      border: none;
+      border-radius: 8px;
+      background-color: rgba(144, 166, 123, 1);
+      font-size: 18px;
+      font-weight: 700;
+      margin: 0 5px;
+      color: white;
+      cursor: pointer;
+      width: 40%;
+    }
+    .btnClose1 {
+      padding: 5px 15px;
+      width: 40%;
+      border: 1px solid rgb(144, 166, 123);
+      text-align: center;
+      background-color: white;
+      font-size: 18px;
+      font-weight: 700;
+      color: rgba(0, 0, 0, 0.5);
+      border-radius: 8px;
+      margin: 0 5px;
+      cursor: pointer;
+      text-decoration: none;
+    }
+  }
+}

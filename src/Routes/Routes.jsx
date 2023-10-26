@@ -1,4 +1,4 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import { lazy, useEffect } from "react";
 import Layout from "../Components/Layout/Layout";
 import LeaveForm from "../Pages/HumanResources/Employees/Leave";
@@ -88,8 +88,11 @@ const AddParts = lazy(() =>
   import("../Pages/warehouseManagement/SpareParts/AddParts")
 );
 
-const Setting=lazy(()=>import ("../Pages/Setting/index"))
-const PartsForm=lazy(()=>import ("../Pages/Setting/addparts"))
+const Setting = lazy(() => import("../Pages/Setting/index"));
+const PartsForm = lazy(() => import("../Pages/Setting/addparts"));
+const OutParts = lazy(() =>
+  import("../Pages/warehouseManagement/SpareParts/OutParts")
+);
 
 const AllRoutes = () => {
   const dispatch = useDispatch();
@@ -125,16 +128,16 @@ const AllRoutes = () => {
             <Route path="create-customer" element={<CustomerForm />} />
           </Route>
           <Route path="/warehouse-management" element={<WareHouse />}>
-            {/* <Route index element={<WareHouse />} /> */}
-            <Route index element={<CanBottleComponent />} />
-            <Route path="can-and-bottles" element={<CanBottleComponent />} >
-            <Route path="adjust-stock" element={<Adjustment />} />
-            <Route path="add-stock" element={<AddStock />} />
-            <Route path="edit-stock" element={<EditStock />} />
+            {/* <Route index element={<CanBottleComponent />} /> */}
+            <Route index element={<Navigate to="can-and-bottles" />} />
+            <Route path="can-and-bottles" element={<CanBottleComponent />}>
+              <Route path="adjust-stock" element={<Adjustment />} />
+              <Route path="add-stock" element={<AddStock />} />
+              <Route path="edit-stock" element={<EditStock />} />
             </Route>
-            <Route path="spare-parts" element={<SparePartsComponent />} >
-            <Route path="add-parts" element={<AddParts />} />
-
+            <Route path="spare-parts" element={<SparePartsComponent />}>
+              <Route path="add-parts" element={<AddParts />} />
+              <Route path="out-parts" element={<OutParts />} />
             </Route>
           </Route>
           <Route path="/oil-storage" element={<OilStorage />}>
@@ -174,8 +177,8 @@ const AllRoutes = () => {
             <Route path="new-service" element={<NewService />} />
           </Route>
           <Route path="communication" element={<Communication />} />
-          <Route path="setting" element={<Setting />} >
-          <Route path="add-spare-parts" element={<PartsForm/>}/>
+          <Route path="setting" element={<Setting />}>
+            <Route path="add-spare-parts" element={<PartsForm />} />
           </Route>
         </Route>
       </Route>

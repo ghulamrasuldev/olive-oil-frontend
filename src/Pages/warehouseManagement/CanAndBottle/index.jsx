@@ -48,7 +48,6 @@ const WareHouse = () => {
           <div className="mainTable">
             <WarehouseOilTable
               searchVal={searchBar}
-              // data={WarehouseOilTableData}
               setShowDelete={setShowDelete}
               address={address}
               check={true}

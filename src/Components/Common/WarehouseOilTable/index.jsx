@@ -21,6 +21,7 @@ import apiService from "../../../Services/apiService";
 import { ErrorMessage } from "../../../Helper/Message";
 import Loading from "../Loading";
 import { setPartData } from "../../../Redux/slice/sparePart";
+import {HiOutlineAdjustments} from 'react-icons/hi'
 
 const WarehouseOilTable = ({ searchVal, data, address, check }) => {
   const lightTheme = Theme();
@@ -94,7 +95,9 @@ const WarehouseOilTable = ({ searchVal, data, address, check }) => {
   const reloadData = () => {
     getOrderBill();
   };
-  const notRequired = check ? ["_id", "__v", "date"] : ["_id", "__v","ProductId"];
+  const notRequired = check
+    ? ["_id", "__v", "date"]
+    : ["_id", "__v", "ProductId"];
   const allTableHeaders = Object.keys(rows[0] || {});
   const tableHeaders = allTableHeaders.filter(
     (field) => !notRequired.includes(field)
@@ -113,90 +116,42 @@ const WarehouseOilTable = ({ searchVal, data, address, check }) => {
     }
   };
 
-  const handleData = (data) => {
-    dispatch(setSelectedStockData(data));
-    dispatch(openEditStock());
-    dispatch(openEditOilStock());
-  };
-
   function formatDate(dateString) {
     const options = {
-      year: 'numeric',
-      month: '2-digit',
-      day: '2-digit',
-      hour: '2-digit',
-      minute: '2-digit',
-      second: '2-digit',
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+      hour: "2-digit",
+      minute: "2-digit",
+      second: "2-digit",
     };
-  
+
     const date = new Date(dateString);
-    return date.toLocaleDateString('en-GB', options);
+    return date.toLocaleDateString("en-GB", options);
   }
 
   return (
-    <TableContainer>
+    <>
       {loading ? (
         <Loading />
       ) : (
-        <Table sx={{ minWidth: 650 }} aria-label="simple table">
-          <TableHead>
-            <TableRow>
-              {tableHeaders.map((header, index) => (
-                <TableCell
-                  key={index}
-                  style={{
-                    borderTopLeftRadius: index === 0 ? "10px" : "0px",
-                    borderBottomLeftRadius: index === 0 ? "10px" : "0px",
-                    borderTopRightRadius:
-                      index === tableHeaders.length ? "10px" : "0px",
-                    borderBottomRightRadius:
-                      index === tableHeaders.length ? "10px" : "0px",
-                  }}
-                >
-                  {header}
-                </TableCell>
-              ))}
-              <TableCell
-                align="right"
-                style={{
-                  borderTopRightRadius: "10px",
-                  borderBottomRightRadius: "10px",
-                }}
-              >
-                Actions
-              </TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {filterData.map((row, index) => (
-              <TableRow
-                key={row.index}
-                style={{
-                  borderRadius: "10px",
-                }}
-                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-              >
-                {tableHeaders.map((cellValue, cellIndex) => (
+        <TableContainer>
+          <Table sx={{ minWidth: 650 }} aria-label="simple table">
+            <TableHead>
+              <TableRow>
+                {tableHeaders.map((header, index) => (
                   <TableCell
-                    key={cellIndex}
-                    align="right"
+                    key={index}
                     style={{
-                      borderTopLeftRadius: cellIndex === 0 ? "10px" : "0px",
-                      borderBottomLeftRadius: cellIndex === 0 ? "10px" : "0px",
+                      borderTopLeftRadius: index === 0 ? "10px" : "0px",
+                      borderBottomLeftRadius: index === 0 ? "10px" : "0px",
+                      borderTopRightRadius:
+                        index === tableHeaders.length ? "10px" : "0px",
+                      borderBottomRightRadius:
+                        index === tableHeaders.length ? "10px" : "0px",
                     }}
                   >
-                    {/* {cellValue === "SparePart" && check === false ? (
-                      <img src={`${row.SparePart}`} alt="Image" height={30}/>
-                    ) : (
-                      row[cellValue]
-                    )} */}
-                    {cellValue === "date" ? (
-                      formatDate(row[cellValue])
-                    ) : cellValue === "SparePart" && check === false ? (
-                      <img src={`${row.SparePart}`} alt="Image" height={30} />
-                    ) : (
-                      row[cellValue]
-                    )}
+                    {header}
                   </TableCell>
                 ))}
                 <TableCell
@@ -206,31 +161,82 @@ const WarehouseOilTable = ({ searchVal, data, address, check }) => {
                     borderBottomRightRadius: "10px",
                   }}
                 >
-                  <div className="mainActionsW">
-                    {check && (
+                  Actions
+                </TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {filterData.map((row, index) => (
+                <TableRow
+                  key={row.index}
+                  style={{
+                    borderRadius: "10px",
+                  }}
+                  sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                >
+                  {tableHeaders.map((cellValue, cellIndex) => (
+                    <TableCell
+                      key={cellIndex}
+                      align="right"
+                      style={{
+                        borderTopLeftRadius: cellIndex === 0 ? "10px" : "0px",
+                        borderBottomLeftRadius:
+                          cellIndex === 0 ? "10px" : "0px",
+                      }}
+                    >
+                      {/* {cellValue === "date" ? (
+                      formatDate(row[cellValue])
+                    ) : cellValue === "SparePart" && check === false ? (
+                      <img src={`${row.SparePart}`} alt="Image" height={30} />
+                    ) : (
+                      row[cellValue]
+                    )} */}
+                      {cellValue === "date" ? (
+                        formatDate(row[cellValue])
+                      ) : cellValue === "SparePart" && check === false ? (
+                        <img src={`${row.SparePart}`} alt="Image" height={30} />
+                      ) : cellValue === "Reason" &&
+                        check === true &&
+                        row["Reason"] !== "New Inventory" ? (
+                              <span className="adjusted">{row[cellValue]}<HiOutlineAdjustments size={15} /></span>
+                      ) : (
+                        row[cellValue]
+                      )}
+                    </TableCell>
+                  ))}
+                  <TableCell
+                    align="right"
+                    style={{
+                      borderTopRightRadius: "10px",
+                      borderBottomRightRadius: "10px",
+                    }}
+                  >
+                    <div className="mainActionsW">
+                      {/* {check && (
                       <div onClick={() => handleData(row)}>
                         <EditStock address={address} />
                       </div>
-                    )}
+                    )} */}
 
-                    <DeletePopUp
-                      circleIcon={false}
-                      id={row["_id"]}
-                      url={
-                        check
-                          ? "/stock/delete-bill"
-                          : "/spareParts/delete/stock/spare-part"
-                      }
-                      reloadData={reloadData}
-                    />
-                  </div>
-                </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
+                      <DeletePopUp
+                        circleIcon={false}
+                        id={row["_id"]}
+                        url={
+                          check
+                            ? "/stock/delete-bill"
+                            : "/spareParts/delete/stock/spare-part"
+                        }
+                        reloadData={reloadData}
+                      />
+                    </div>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
       )}
-    </TableContainer>
+    </>
   );
 };
 
