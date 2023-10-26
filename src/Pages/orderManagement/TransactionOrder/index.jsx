@@ -4,7 +4,7 @@ import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import "./Style.scss";
 import { Tooltip } from "@mui/material";
-import Watch from "../../../assets/icons/Watch.png";
+import Watch from "../../../assets/icons/watch.png";
 import Theme from "../../../Theme/Theme";
 import Tick from "../../../assets/icons/tick1.png";
 import { SuccessMessage, ErrorMessage } from "../../../Helper/Message";

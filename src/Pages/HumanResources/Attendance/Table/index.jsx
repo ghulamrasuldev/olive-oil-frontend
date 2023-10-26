@@ -7,7 +7,7 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import "./Style.scss";
 import File from "../../../../assets/icons/file.png";
-import Tick from "../../../../assets/icons/Tick1.png";
+import Tick from "../../../../assets/icons/tick1.png";
 import View from "../../../../assets/icons/TableEye.png";
 import Theme from "../../../../Theme/Theme";
 import Tooltip from "@mui/material/Tooltip";
