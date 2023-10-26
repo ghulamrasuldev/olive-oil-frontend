@@ -17,7 +17,11 @@
     ) !important; // You can adjust this color
     border-radius:10px!important;
   }
-  
+  .adjusted{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
   // Styling for body cells
   .MuiTableCell-body {
     text-align: center !important;

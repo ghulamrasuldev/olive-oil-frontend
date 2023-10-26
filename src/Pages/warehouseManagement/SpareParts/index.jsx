@@ -16,6 +16,7 @@ import EditStock from "../EditStock";
 import { useSelector } from "react-redux";
 import Adjustment from "../Adjustment";
 import AddParts from "./AddParts";
+import OutParts from "./OutParts";
 
 const SparePartsComponent = () => {
   const [searchBar, setSearchBar] = useState();
@@ -35,7 +36,7 @@ const SparePartsComponent = () => {
         <div className="inStockDiv">
           <p className="p1">In Stock</p>
           <div className="stockBtn">
-            {/* <TransactionForm /> */}
+            <OutParts/>
             <AddParts/>
             <CustomSearchInput
               placeholder="search"
@@ -48,7 +49,6 @@ const SparePartsComponent = () => {
           <div className="mainTable">
             <WarehouseOilTable
               searchVal={searchBar}
-              // data={WarehouseOilTableData}
               setShowDelete={setShowDelete}
               address={address}
               check={false}

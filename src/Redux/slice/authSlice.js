@@ -7,7 +7,8 @@ const initialState = {
   phoneNumber: '', 
   reload: false,
   reloadOrder:false,
-  reloadOrderBill:false,
+  reloadOrderBill: false,
+  reloadProductTable:false
 };
 
 const authSlice = createSlice({
@@ -34,6 +35,9 @@ const authSlice = createSlice({
     },
     ReloadOrderBill: (state,action) => {
       state.reloadOrderBill = action.payload;
+    },
+    ReloadProductTable: (state,action) => {
+      state.reloadProductTable = action.payload;
     }
   },
 });
@@ -45,7 +49,8 @@ export const {
   clearPhoneNumber, 
   setReload,
   ReloadOrder,
-  ReloadOrderBill
+  ReloadOrderBill,
+  ReloadProductTable
 } = authSlice.actions;
 
 export default authSlice.reducer;
