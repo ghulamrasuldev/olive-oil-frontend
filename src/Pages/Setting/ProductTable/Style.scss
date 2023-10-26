@@ -1,4 +1,5 @@
-// Styling for header cells
+// .productTable{
+
 .MuiTableCell-head {
     background-color: rgba(144, 166, 123, 1) !important;
     text-align: center !important;
@@ -17,6 +18,8 @@
     ) !important; // You can adjust this color
     border-radius:10px!important;
   }
+
+
   
   // Styling for body cells
   .MuiTableCell-body {
@@ -43,3 +46,4 @@
           }
       }
   }
+// }

@@ -99,7 +99,7 @@ const ProductTable = () => {
       {loading ? (
         <Loading />
       ) : (
-        <Table sx={{ minWidth: 650 }} aria-label="simple table">
+        <Table sx={{ minWidth: 650 }} aria-label="simple table" >
           <TableHead>
             <TableRow>
               {tableHeaders.map((header, index) => (
