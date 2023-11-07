@@ -53,5 +53,12 @@
     box-shadow: 0px 4px 20px 0px rgba(238, 238, 238, 0.52);
     padding: 10px;
     margin-top: 15px;
+    height:400px;
+    // width:70%;
+    overflow-y:auto;
+
+  }
+  .empTable::-webkit-scrollbar {
+    display: none;
   }
 }

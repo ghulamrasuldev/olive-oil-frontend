@@ -8,14 +8,13 @@ import LeaveForm from "./Leave";
 import { FaLessThanEqual } from "react-icons/fa";
 import Profile from "./Profile";
 import CustomSearchInput from "../../../Components/Common/customSearch";
-import {EmployeeData} from './Table/Constant'
 
 const Employees = () => {
   const [searchBar, setSearchBar] = useState();
   const [addEmp, setAddEmp] = useState(0);
   const [leaveForm, setLeaveForm] = useState(0);
   const [show, setShow] = useState(true);
-  const address='/human-resources/employees'
+  const address = "/human-resources/employees";
   return (
     <div className="employeesMain">
       {show ? (
@@ -24,13 +23,17 @@ const Employees = () => {
             <p className="p1">Employees</p>
             <div className="btns">
               <LeaveForm address={address} />
-              <AddEmployee address={address}/>
-              
-            <CustomSearchInput placeholder="search" onSearchChange={setSearchBar} iconShow={true}/>
+              <AddEmployee address={address} />
+
+              <CustomSearchInput
+                placeholder="search"
+                onSearchChange={setSearchBar}
+                iconShow={true}
+              />
             </div>
           </div>
           <div className="empTable">
-            <EmployeeTable searchVal={searchBar} setShow={setShow} data={EmployeeData} />
+            <EmployeeTable searchVal={searchBar} setShow={setShow} />
           </div>
         </>
       ) : (

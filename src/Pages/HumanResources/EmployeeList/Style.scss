@@ -61,6 +61,14 @@
             }
           }
       }
+      .skeleton{
+        display: flex;
+        align-items: center;
+        width:100%;
+        .skeletonText{
+          width: 100%;
+        }
+      }
     }
   }
 }
