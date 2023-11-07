@@ -22,6 +22,7 @@ import { ErrorMessage } from "../../../Helper/Message";
 import Loading from "../../../Components/Common/Loading";
 import { setPartData } from "../../../Redux/slice/sparePart";
 import { formatDateTime } from "../../../Helper/date";
+import { setLinesData } from "../../../Redux/slice/productionLines";
 
 const ProductionLineTable = () => {
   const lightTheme = Theme();
@@ -29,9 +30,7 @@ const ProductionLineTable = () => {
   const [rows, setRows] = useState([]);
   const [filterData, setFilterData] = useState([]);
   const [loading, setLoading] = useState(false);
-  const linesData = useSelector(
-    (state) => state.auth.linesData
-  );
+  const linesData = useSelector((state) => state.auth.linesData);
 
   const getProductionLine = async () => {
     try {
@@ -49,6 +48,7 @@ const ProductionLineTable = () => {
         if (response.data.length > 0) {
           setRows(response.data || []);
           setFilterData(response.data || []);
+          dispatch(setLinesData(response.data || []));
           setLoading(false);
         }
       }
@@ -63,9 +63,7 @@ const ProductionLineTable = () => {
     getProductionLine();
   }, [linesData]);
 
-
-
-  const notRequired = ["_id", "__v",];
+  const notRequired = ["_id", "__v"];
   const allTableHeaders = Object.keys(rows[0] || {});
   const tableHeaders = allTableHeaders.filter(
     (field) => !notRequired.includes(field)
@@ -125,7 +123,9 @@ const ProductionLineTable = () => {
                           cellIndex === 0 ? "10px" : "0px",
                       }}
                     >
-                      {cellValue==='Date'?formatDateTime(row['Date']):row[cellValue]}
+                      {cellValue === "Date"
+                        ? formatDateTime(row["Date"])
+                        : row[cellValue]}
                       {/* {row[cellValue]} */}
                     </TableCell>
                   ))}
