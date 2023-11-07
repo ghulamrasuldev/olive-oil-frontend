@@ -1,5 +1,4 @@
-// .productTable{
-
+.productTableS{
 .MuiTableCell-head {
     background-color: rgba(144, 166, 123, 1) !important;
     text-align: center !important;
@@ -19,7 +18,9 @@
     border-radius:10px!important;
   }
 
-
+  .css-1ygcj2i-MuiTableCell-root{
+    padding:16px!important;
+  }
   
   // Styling for body cells
   .MuiTableCell-body {
@@ -46,4 +47,4 @@
           }
       }
   }
-// }
+}
