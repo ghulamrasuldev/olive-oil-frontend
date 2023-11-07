@@ -9,6 +9,8 @@ import Order from "../../Components/Common/Orders/Order";
 import Slider from "../../Components/Common/Slider/slider";
 import { Link, Outlet } from "react-router-dom";
 import Form from "./orderForm/Form";
+import { Fade } from "react-awesome-reveal";
+
 
 const OrderManagement = () => {
   const lightTheme = Theme();
@@ -34,7 +36,9 @@ const OrderManagement = () => {
 
         <Cards />
         <OrderProductionGraph />
+        <Fade>
         <Order qrcode={true} />
+        </Fade>
       </div>
     </div>
   );

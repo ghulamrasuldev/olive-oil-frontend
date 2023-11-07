@@ -11,6 +11,8 @@ import CustomerTable from "./Table/index";
 import CustomerForm from "./CustomerForm/index";
 import CustomSearchInput from "../../Components/Common/customSearch";
 import DeletePopup from "../../Components/Common/DeletePopUp";
+import { Fade } from "react-awesome-reveal";
+
 
 const CustomerManagement = () => {
   const { t } = useTranslation();
@@ -42,6 +44,7 @@ const CustomerManagement = () => {
 
         <Cards />
         <ProductionGraph />
+          <Fade>
         <div className="customerTableMain">
           <p className="p1">Customers</p>
           <CustomSearchInput
@@ -53,6 +56,7 @@ const CustomerManagement = () => {
         <div className="customerTable">
           <CustomerTable searchBar={searchBar} setShowDelete={setShowDelete} />
         </div>
+          </Fade>
       </div>
     </div>
   );

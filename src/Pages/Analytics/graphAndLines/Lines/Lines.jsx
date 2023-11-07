@@ -3,6 +3,7 @@ import "./Style.scss";
 import Theme from "../../../../Theme/Theme";
 import ReactApexChart from "react-apexcharts";
 
+
 const Lines = () => {
   const lightTheme = Theme();
   const [graph, setGraph] = useState({
@@ -78,11 +79,13 @@ const Lines = () => {
   });
   return (
     <div className="linesMain">
+      
       <p className="p1">Production Lines</p>
       <div
         className="linesDiv"
         style={{ backgroundColor: `${lightTheme.componentBackground}` }}
       >
+
         <div className="linesDashboard">
           <p className="p2">Production Capacity</p>
           <div>
