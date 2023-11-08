@@ -71,9 +71,7 @@ const ProductTable = () => {
   //     searchFilter();
   //   }, [searchVal]);
 
-  const reloadData = () => {
-    getProduct();
-  };
+ 
 
   const notRequired = ["_id", "__v", "date"];
   const allTableHeaders = Object.keys(rows[0] || {});
@@ -81,24 +79,13 @@ const ProductTable = () => {
     (field) => !notRequired.includes(field)
   );
 
-  //   const searchFilter = () => {
-  //     if (!searchVal) {
-  //       setFilterData(rows);
-  //     } else {
-  //       const filter = rows.filter((order) => {
-  //         return tableHeaders.some((header) =>
-  //           order[header].toLowerCase().includes(searchVal)
-  //         );
-  //       });
-  //       setFilterData(filter);
-  //     }
-  //   };
-
+ 
   return (
-    <TableContainer>
+    <>
       {loading ? (
         <Loading />
       ) : (
+    <TableContainer className="productTableS"> 
         <Table sx={{ minWidth: 650 }} aria-label="simple table" >
           <TableHead>
             <TableRow>
@@ -183,8 +170,10 @@ const ProductTable = () => {
             ))}
           </TableBody>
         </Table>
+      </TableContainer>
       )}
-    </TableContainer>
+    </>
+      
   );
 };
 

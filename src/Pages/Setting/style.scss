@@ -1,11 +1,20 @@
 .mainSetting{
     padding:25px;
+    .btnDiv{
+        display: flex;
+
+    }
     .productTable{
-        margin:20px 0;
+        margin:10px 0;
         background-color: white;
         padding:15px;
         border-radius:10px;
         height:400px;
         overflow-y: auto;
+    }
+    .pt{
+        margin:15px 0;
+        font-size:18px;
+        font-weight: 600;
     }
 }

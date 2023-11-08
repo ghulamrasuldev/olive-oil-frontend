@@ -1,10 +1,12 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "./Style.scss";
 import Backdrop from "@mui/material/Backdrop";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import Fade from "@mui/material/Fade";
-import { Collapse, Tooltip, Zoom } from "@mui/material";
+import Button from "@mui/material/Button";
+import Typography from "@mui/material/Typography";
+import { Tooltip } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
 import { IoMdClose } from "react-icons/io";
 import Select from "react-select";
@@ -13,10 +15,8 @@ import { AiOutlineCloseCircle } from "react-icons/ai";
 import { ErrorMessage, SuccessMessage } from "../../../Helper/Message";
 import apiService from "../../../Services/apiService";
 import { useDispatch, useSelector } from "react-redux";
-import { ReloadProductTable } from "../../../Redux/slice/authSlice";
-
-
-
+import { LinesData, ReloadProductTable } from "../../../Redux/slice/authSlice";
+import { ImStatsDots } from "react-icons/im";
 
 const style = {
   position: "absolute",
@@ -45,36 +45,37 @@ const unitOptions = [
   },
 ];
 
-export default function PartsForm() {
+export default function ProductionLines() {
   const navigation = useNavigate();
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-  const partImg = useRef(null);
   const dispatch = useDispatch();
-  const reloadProductTable = useSelector(
-    (state) => state.auth.reloadProductTable
-  );
-  const [selectedImageUrl, setSelectedImageUrl] = useState("");
-  const LoginAdmin = localStorage.getItem("userName");
+  const lines = useSelector((state) => state.auth.linesData);
   const [formData, setFormData] = useState({
-    partName: "",
-    unit: "",
-    selectedImg: "",
-    quantity: "",
-    admin: LoginAdmin,
+    line: "",
+    capacity: "",
+    target: "",
+    admin: "",
   });
   const [formDataError, setFormDataError] = useState({
-    partName: "",
-    unit: "",
+    line: "",
+    capacity: "",
+    target: "",
   });
 
- 
+  useEffect(() => {
+    const LoginAdmin = localStorage.getItem("userName");
+    setFormData({
+      ...formData,
+      admin:LoginAdmin
+    })
+  }, [formData.admin]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    const alphabetRegex = /^[A-Za-z]+$/;
-
+    const pattern = /^[A-Za-z]+-\d+$/;
+    const numbers = /^\d+$/;
     const updateError = (fieldName, regex, error) => {
       if (!regex.test(value)) {
         setFormDataError({
@@ -87,12 +88,14 @@ export default function PartsForm() {
     };
 
     switch (name) {
-      case "partName":
-        updateError(
-          "partName",
-          alphabetRegex,
-          "It should contain only alphabets"
-        );
+      case "line":
+        updateError("line", pattern, "Correct format e.g Line-01");
+        break;
+      case "capacity":
+        updateError("capacity", numbers, "it should contain only numbers");
+        break;
+      case "target":
+        updateError("target", numbers, "it should contain only numbers");
         break;
     }
     setFormData({
@@ -101,60 +104,22 @@ export default function PartsForm() {
     });
   };
 
-  const handleUnit = (selectedOption) => {
-    if (selectedOption) {
-      setFormDataError({
-        ...formDataError,
-        unit: "",
-      });
-    }
-    setFormData({
-      ...formData,
-      unit: selectedOption.value,
-    });
-  };
-
   const handleCancel = () => {
     emptyForm();
-    removeSelectedImage();
     handleClose();
     navigation("/setting", { replace: true });
   };
 
-  const handleProfileClick = () => {
-    partImg.current.click();
-  };
-
-  const handleProfileImage = (event) => {
-    const selectedImg = event.target.files[0];
-    if (selectedImg) {
-      setFormData({
-        ...formData,
-        selectedImg: selectedImg,
-      });
-      const imageUrl = URL.createObjectURL(selectedImg);
-      setSelectedImageUrl(imageUrl);
-    }
-  };
-
-  const removeSelectedImage = () => {
-    setSelectedImageUrl("");
-    setFormData({
-      ...formData,
-      selectedImg: "",
-    });
-  };
-
   const emptyForm = () => {
     setFormData({
-      partName: "",
-      unit: "",
-      selectedImg: "",
-      quantity: "",
+      line: "",
+      capacity: "",
+      target: "",
     });
     setFormDataError({
-      partName: "",
-      unit: "",
+      line: "",
+      capacity: "",
+      target: "",
     });
   };
 
@@ -162,7 +127,12 @@ export default function PartsForm() {
     e.preventDefault();
     try {
       const authToken = localStorage.getItem("authToken");
-      const requiredField = ["partName", "unit"];
+      const LoginAdmin = localStorage.getItem("userName");
+      setFormData({
+        ...formData,
+        admin: LoginAdmin,
+      });
+      const requiredField = ["line", "capacity", "target"];
       const fieldError = {};
       requiredField.forEach((field) => {
         if (!formData[field]) {
@@ -176,26 +146,19 @@ export default function PartsForm() {
         }));
         return;
       }
-      const DataToSend = new FormData();
-      DataToSend.append("sparePart", formData.partName);
-      DataToSend.append("unit", formData.unit);
-      DataToSend.append("quantity", formData.quantity);
-      DataToSend.append("admin", formData.admin);
-      if (formData.selectedImg) {
-        DataToSend.append("image", formData.selectedImg);
-      }
+
       const response = await apiService(
         "POST",
-        "/spareParts/add/spare-parts",
+        "/order/create-production-line",
         {
           "x-usertoken": authToken,
         },
-        DataToSend
+        formData
       );
 
       if (response.success) {
+        dispatch(LinesData(!lines));
         SuccessMessage(response.message);
-        dispatch(ReloadProductTable(!reloadProductTable));
         handleCancel();
       } else {
         ErrorMessage(response.message);
@@ -207,11 +170,13 @@ export default function PartsForm() {
     }
   };
 
+
+
   return (
     <div className="partsMain">
-      <Tooltip title="Add New" position="top">
-        <Link to="add-spare-parts" onClick={() => handleOpen()}>
-          + Spare Parts
+      <Tooltip title="Production Line" position="top">
+        <Link to="add-production-line" onClick={() => handleOpen()}>
+          <ImStatsDots size={13} /> Lines
         </Link>
       </Tooltip>
       <Modal
@@ -231,7 +196,7 @@ export default function PartsForm() {
           <Box sx={style}>
             <div className="partsFormMain">
               <div className="formDiv1">
-                <p className="p1">Add Spare Parts</p>
+                <p className="p1">Add Production Line</p>
                 <IoMdClose
                   color="black"
                   size={20}
@@ -239,22 +204,22 @@ export default function PartsForm() {
                   className="icon"
                 />
               </div>
-              <form onSubmit={handleSubmit} encType="multipart/form-data">
+              <form onSubmit={handleSubmit}>
                 <div className="togglePartsDiv">
                   <div className="nameDiv1">
                     <div className="textAndError">
-                      <p className="p5">Spare Part Name</p>
-                      {formDataError.partName && (
-                        <span className="error">{formDataError.partName}</span>
+                      <p className="p5">Line</p>
+                      {formDataError.line && (
+                        <span className="error">{formDataError.line}</span>
                       )}
                     </div>
                     <div className="inputDiv1">
                       <div className="nameDiv1">
                         <input
                           type="text"
-                          name="partName"
-                          placeholder="Nuts"
-                          value={formData.partName}
+                          name="line"
+                          placeholder="Line-01"
+                          value={formData.line}
                           onChange={handleInputChange}
                         />
                       </div>
@@ -262,56 +227,43 @@ export default function PartsForm() {
                   </div>
                   <div className="nameDiv1">
                     <div className="textAndError">
-                      <p className="p5">Unit Options</p>
-                      {formDataError.unit && (
-                        <span className="error">{formDataError.unit}</span>
+                      <p className="p5">Line capacity</p>
+                      {formDataError.capacity && (
+                        <span className="error">{formDataError.capacity}</span>
                       )}
                     </div>
                     <div className="inputDiv1">
                       <div className="nameDiv1">
-                        <Select
-                          value={unitOptions.find(
-                            (option) => option.value === formData.unit
-                          )}
-                          onChange={handleUnit}
-                          options={unitOptions}
+                        <input
+                          type="text"
+                          name="capacity"
+                          placeholder="567890"
+                          value={formData.capacity}
+                          onChange={handleInputChange}
                         />
                       </div>
                     </div>
                   </div>
                 </div>
-                <div className="selectedImgDiv">
-                  <div className="picDiv">
-                    <p className="p6">Upload Your Picture*</p>
-                    <div className="imgDiv">
-                      <p>{formData.selectedImg.name}</p>
-                      <img
-                        src={Camera}
-                        alt="camera"
-                        onClick={handleProfileClick}
-                      />
-
-                      <input
-                        type="file"
-                        style={{ display: "none" }}
-                        onChange={handleProfileImage}
-                        ref={partImg}
-                        accept="image/*"
-                      />
+                <div className="togglePartsDiv">
+                  <div className="nameDiv1">
+                    <div className="textAndError">
+                      <p className="p5">Actual Target</p>
+                      {formDataError.target && (
+                        <span className="error">{formDataError.target}</span>
+                      )}
                     </div>
-                  </div>
-                  <div className="selectedImg">
-                    {selectedImageUrl && (
-                      <div style={{ position: "relative" }}>
-                        <img src={selectedImageUrl} alt="camera" />
-                        <span
-                          className="removeIcon"
-                          onClick={removeSelectedImage}
-                        >
-                          <AiOutlineCloseCircle size={20} color="red" />
-                        </span>
+                    <div className="inputDiv1">
+                      <div className="target">
+                        <input
+                          type="text"
+                          name="target"
+                          placeholder="987654"
+                          value={formData.target}
+                          onChange={handleInputChange}
+                        />
                       </div>
-                    )}
+                    </div>
                   </div>
                 </div>
                 <div className="buttons1">

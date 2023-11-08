@@ -6,7 +6,6 @@ const partDataSlice = createSlice({
   reducers: {
     setPartData: (state, action) => {
       state.partData = action.payload;
-    //   state.objectId = action.payload.objectId;
     },
   },
 });

@@ -52,6 +52,10 @@
   }
   .customerTable{
     position: relative;
-    
+    height:400px;
+    overflow-y: auto;
+  }
+  .customerTable::-webkit-scrollbar {
+    display: none;
   }
 }
