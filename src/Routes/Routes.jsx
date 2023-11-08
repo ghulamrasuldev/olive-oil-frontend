@@ -97,7 +97,8 @@ const OutParts = lazy(() =>
   import("../Pages/warehouseManagement/SpareParts/OutParts")
 );
 
-const ProductionLine=lazy(()=>import("../Pages/Setting/ProductionLine/index"))
+const ProductionLine = lazy(() => import("../Pages/Setting/ProductionLine/index"))
+const AccountTab = lazy(() => import('../Pages/Finance/Account/Tabs/index'));
 
 
 
@@ -173,6 +174,8 @@ const employeeData = useSelector((state) => state.auth.employeeData);
             <Route path="overview" element={<FinanceOverview />} />
             <Route path="chart-accounts" element={<Account />}>
               <Route path="new-entry" element={<AccountForm />} />
+              <Route path="add-account-tab" element={<AccountTab />} />
+
             </Route>
             <Route path="ledger" element={<Ledger />} />
           </Route>

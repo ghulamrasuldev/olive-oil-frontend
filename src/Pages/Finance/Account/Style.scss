@@ -31,11 +31,42 @@
       }
     }
   }
+  .tabsMain {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    // padding: 5px;
+    border-radius: 10px;
+    background: #fff;
+    box-shadow: 0px 4px 20px 0px rgba(238, 238, 238, 0.52);
+    .tabs {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      .tab{
+        padding:10px;
+        background-color: red;
+        font-weight: 600;
+        cursor: pointer;
+      }
+    }
+    .newTab{
+      button{
+        border: none;
+        background-color: #90a67b;
+        padding:10px;
+        border-top-right-radius:10px;
+        border-bottom-right-radius:10px;
+        cursor: pointer;
+      }
+
+    }
+  }
   .div2 {
     border-radius: 10px;
     background: #fff;
     padding: 15px;
-    margin:20px 0;
+    margin: 20px 0;
     .filters {
       display: flex;
       align-items: flex-start;
@@ -86,7 +117,7 @@
         .css-13cymwt-control {
           border-color: rgba(144, 166, 123, 1) !important;
           border-radius: 10px !important;
-          padding:0!important;
+          padding: 0 !important;
         }
         .css-b62m3t-container {
           width: 25% !important;
@@ -102,8 +133,8 @@
         }
       }
     }
-    .tableDiv{
-      margin:25px 0;
+    .tableDiv {
+      margin: 25px 0;
     }
   }
 }

@@ -11,6 +11,7 @@ import TableCom from "./Table";
 import AccountForm from "./AccountForm";
 import CustomSearchInput from "../../../Components/Common/customSearch";
 import { accountTableData } from "../../../Components/Common/Table/constant";
+import AccountTab from "./Tabs";
 
 const options = [
   { label: "action1", value: "action1" },
@@ -27,13 +28,21 @@ const Account = () => {
     <div className="accountMain">
       <div className="div1">
         <p className="p1">Chart Of Accounts</p>
-        <div className="btns">
+        {/* <div className="btns">
           <Link>Run Report</Link>
           <AccountForm address={address}/>
-        </div>
-        
+        </div> */}
       </div>
-      <div className="div2">
+      <div className="tabsMain">
+        <div className="tabs">
+        <p className="tab">Assest</p>
+        <p className="tab">Assest</p>
+        </div>
+        <div className="newTab">
+          <AccountTab/>
+        </div>
+      </div>
+      {/* <div className="div2">
         <div className="filters">
           <div className="filter">
             <div className="batchActionBtn">
@@ -68,7 +77,7 @@ const Account = () => {
             data={accountTableData}
           />
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };

@@ -1,0 +1,197 @@
+.AddTabMain {
+  .newTab {
+    padding: 10px;
+    background-color: rgb(144, 166, 123) !important;
+    text-align: center;
+    background-color: white;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    display: flex;
+    align-items: center;
+    // cursor: pointer;
+    a {
+      color: white;
+      text-decoration: none;
+      font-size: 15px;
+      font-weight: 600;
+    }
+    .addIcon {
+      color: white;
+      margin-right:1px;
+    }
+  }
+}
+.tabsFormMain {
+  .formDiv1 {
+    display: flex;
+    justify-content: space-between;
+    .p1 {
+      color: #000;
+      font-family: Poppins;
+      font-size: 24px;
+      font-style: normal;
+      font-weight: 500;
+      line-height: normal;
+    }
+    .icon {
+      cursor: pointer;
+    }
+  }
+
+  .togglePartsDiv {
+    padding: 15px 10px;
+    width: 100%;
+    .nameDiv1 {
+      // background-color: blue;
+      width: 100%;
+      .textAndError {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        .error {
+          color: red;
+          font-size: 12px;
+        }
+
+        .p5 {
+          color: rgba(0, 0, 0, 0.55);
+          font-size: 14px;
+          font-weight: 400;
+          margin-bottom: 3px;
+          //   background-color: black;
+        }
+      }
+      .inputDiv1 {
+        display: flex;
+        align-items: center;
+        .nameDiv1 {
+          width: 50%;
+          input {
+            width: 90%;
+            padding: 8px 5px;
+            border: 1px solid rgba(144, 166, 123, 1);
+            font-size: 14px;
+            font-family: 400;
+            border-radius: 10px;
+          }
+          :focus {
+            outline: none;
+          }
+        }
+        .css-13cymwt-control {
+          border: 1px solid rgba(144, 166, 123, 1);
+          padding: 1px !important;
+          font-size: 12px !important;
+          border-radius: 10px !important;
+        }
+        .css-b62m3t-container {
+          width: 97% !important;
+        }
+        .css-1u9des2-indicatorSeparator {
+          width: 0 !important;
+        }
+      }
+    }
+    .tabDetails {
+      width: 100%;
+      .toggleTab {
+        font-weight: 600;
+        background-color: rgb(224, 224, 224);
+        padding: 10px;
+        width: 30%;
+        margin: 10px 0;
+        border-radius: 10px;
+        cursor: pointer;
+      }
+      .show {
+        height: 150px;
+        transition: all 0.5s;
+        // overflow: hidden;
+      }
+      .hide {
+        height: 0px;
+        overflow: hidden;
+        transition: all 0.5s;
+      }
+      .mainDetail {
+        .detailForm {
+          display: flex;
+          // align-items: center;
+          width: 100%;
+          margin: 10px 0;
+          .nameDiv1 {
+            width: 100%;
+            .textAndError {
+              display: flex;
+              align-items: center;
+              justify-content: space-between;
+              .error {
+                color: red;
+                font-size: 12px;
+              }
+
+              .p5 {
+                color: rgba(0, 0, 0, 0.55);
+                font-size: 14px;
+                font-weight: 400;
+                margin-bottom: 3px;
+                //   background-color: black;
+              }
+            }
+            .inputDiv1 {
+              display: flex;
+              align-items: center;
+              .nameDiv1 {
+                width: 100%;
+                input {
+                  width: 90%;
+                  padding: 8px 5px;
+                  border: 1px solid rgba(144, 166, 123, 1);
+                  font-size: 14px;
+                  font-family: 400;
+                  border-radius: 10px;
+                }
+                :focus {
+                  outline: none;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .buttons1 {
+    float: right;
+    margin-top: 15px;
+    display: flex;
+    .btnCreate1 {
+      padding: 5px 15px;
+      text-align: center;
+      border: none;
+      border-radius: 8px;
+      background-color: rgba(144, 166, 123, 1);
+      font-size: 18px;
+      font-weight: 700;
+      margin: 0 5px;
+      color: white;
+      cursor: pointer;
+      width: 40%;
+    }
+    .btnClose1 {
+      padding: 5px 15px;
+      width: 40%;
+      border: 1px solid rgb(144, 166, 123);
+      text-align: center;
+      background-color: white;
+      font-size: 18px;
+      font-weight: 700;
+      color: rgba(0, 0, 0, 0.5);
+      border-radius: 8px;
+      margin: 0 5px;
+      cursor: pointer;
+      text-decoration: none;
+    }
+  }
+}
