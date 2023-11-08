@@ -11,6 +11,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
 import { notAuthenticateUser } from "../../Redux/slice/authSlice";
 import { setValue } from "../../Redux/slice/NavbarValues";
+import Swal from 'sweetalert2';
 
 const NavBar = () => {
   const { t } = useTranslation();
@@ -19,11 +20,27 @@ const NavBar = () => {
   const sidebarValue = useSelector((state) => state.value.value);
   const [a, setA] = useState();
 
+  
   const logout = () => {
-    localStorage.removeItem("authToken");
-    localStorage.removeItem("userName");
-    dispatch(notAuthenticateUser());
-    dispatch(setValue(0));
+    Swal.fire({
+      title: 'Log Out',
+      text: 'Are you sure you want to log out?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, log out',
+      cancelButtonText: 'Cancel',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        localStorage.removeItem('authToken');
+        localStorage.removeItem('userName');
+        dispatch(notAuthenticateUser());
+        dispatch(setValue(0));
+  
+        Swal.fire('Logged Out', 'You have been logged out.', 'success');
+      }
+    });
   };
 
   return (
@@ -70,7 +87,7 @@ const NavBar = () => {
       </div>
     </nav>
   );
-  ``;
+  
 };
 
 export default NavBar;
