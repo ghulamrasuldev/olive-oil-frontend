@@ -59,7 +59,7 @@ export default function Form() {
   const [selectedOption, setSelectedOption] = useState(null);
   const [register, setRegister] = useState(false);
   const [profile, setProfile] = useState();
-  const [value, setValue] = useState();
+  const lines = useSelector((state) => state.lineData.linesData);
   const [formErrorsOrder, setformErrorsOrder] = useState({
     orderId: "",
     weight: "",
@@ -97,6 +97,10 @@ export default function Form() {
 
   const reloadOrder=useSelector((state)=>state.auth.reloadOrder)
 
+  const linesOptions = lines.map((line) => ({
+    label: line.Line,
+    value:line.Line
+  }))
 
   const handleFileClick = () => {
     fileInputRef.current.click();
@@ -193,6 +197,21 @@ export default function Form() {
     setformDataOrder({
       ...formDataOrder,
       oliveFruit: selectedOption ? selectedOption.value : null,
+    });
+  };
+  const handleSelectChangeLine = (selectedOption) => {
+    if (!selectedOption) {
+      setformErrorsOrder({
+        ...formErrorsOrder,
+        lineNumber: "Please select an option",
+      });
+    } else {
+      setformErrorsOrder({ ...formErrorsOrder, lineNumber: "" });
+    }
+
+    setformDataOrder({
+      ...formDataOrder,
+      lineNumber: selectedOption ? selectedOption.value : null,
     });
   };
 
@@ -727,7 +746,7 @@ export default function Form() {
                           </span>
                         )}
                       </div>
-                      <div className="wandp">
+                      {/* <div className="wandp">
                         <input
                           type="text"
                           name="lineNumber"
@@ -735,7 +754,15 @@ export default function Form() {
                           value={formDataOrder.lineNumber}
                           onChange={handleInputChangeOrder}
                         />
-                      </div>
+                      </div> */}
+                    <Select
+                      value={options.find(
+                        (option) => option.value === lines.Line
+                      )}
+                      onChange={handleSelectChangeLine}
+                      options={linesOptions}
+                      className="select"
+                    />
                     </div>
                 </div>
               </div>

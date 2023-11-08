@@ -9,6 +9,8 @@ import "./dashboard.scss";
 import GraphCalendar from "./graphAndCalendar";
 import Order from "../../Components/Common/Orders/Order"; 
 import Theme from '../../Theme/Theme'
+import { Fade } from "react-awesome-reveal";
+import { Slide } from "react-awesome-reveal";
 
 const Dashboard = () => {
   const lightTheme = Theme();
@@ -31,7 +33,9 @@ const Dashboard = () => {
           <Reports />
         </div>
         <div>
+          <Fade>
           <Order qrcode={false} />
+          </Fade>
         </div>
         <button onClick={() => handleLanguage("en")}>English</button>
         <button onClick={() => handleLanguage("arb")}>Arabic</button>

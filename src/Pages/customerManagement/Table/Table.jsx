@@ -6,9 +6,6 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import "./Table.scss";
-import Tick from "../../../assets/icons/tick1.png";
-import Delete from "../../../assets/icons/delete.png";
-import Watch from "../../../assets/icons/watch.png";
 import Theme from "../../../Theme/Theme";
 import Tooltip from "@mui/material/Tooltip";
 import DeletePopUp from "../../../Components/Common/DeletePopUp";
@@ -17,6 +14,7 @@ import apiService from "../../../Services/apiService";
 import { ErrorMessage, SuccessMessage } from "../../../Helper/Message";
 import Loading from "../../../Components/Common/Loading/index";
 import { useSelector } from "react-redux";
+import { formatDateTime } from "../../../Helper/date";
 
 
 const TableData = ({ searchVal, setShowDelete }) => {
@@ -86,12 +84,6 @@ const TableData = ({ searchVal, setShowDelete }) => {
     getData();
   }
 
-  const formatDateTime = (dateTimeStr) => {
-    const date = new Date(dateTimeStr);
-    const formattedDate = date.toLocaleDateString();
-    const formattedTime = date.toLocaleTimeString();
-    return `${formattedDate} ${formattedTime}`;
-  };
 
   return (
     <>
@@ -133,7 +125,7 @@ const TableData = ({ searchVal, setShowDelete }) => {
                 <TableRow
                   key={row.index}
                   style={{
-                    borderRadius: "10px", // Border radius for odd rows
+                    borderRadius: "10px",
                   }}
                   sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                 >

@@ -21,19 +21,193 @@
         cursor: pointer;
         padding: 10px 15px;
       }
+      .selectedImgDiv {
+        display: flex;
+        justify-content: center;
+        .picDiv {
+          background-color: #eaebe9;
+          border: 1px solid rgb(131, 131, 131);
+          border-style: dashed;
+          border-radius: 50%;
+          height: 100%;
+          width: 100%;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          padding: 5px;
+          margin-top: 10px;
+          .p6 {
+            font-size: 10px;
+          }
+          .imgDiv {
+            img {
+              height: 30px;
+              // background-position: center;
+              // background-size: cover;
+              // border-radius:50%;
+              // height:100%;
+            }
+          }
+        }
+      }
+
+      .mainProfile {
+        display: flex;
+        justify-content: center;
+        .profileImg {
+          position: relative;
+          margin-top: 10px;
+          width: 100px;
+          height: 100px;
+          border-radius: 10%;
+          background-size: cover;
+          background-position: center;
+
+          // img{
+          //   border-radius: 50%;
+          // }
+          .removeIcon {
+            position: absolute;
+            top: -2%;
+            left: 5%;
+            z-index: 5;
+            cursor: pointer;
+          }
+        }
+      }
     }
   }
+
   .toggleDiv {
     border-radius: 10px;
     padding-left: 30px;
     margin-top: 20px;
+    .personal {
+      width: 100%;
+      .personalBtn {
+        background-color: #c7c7c7;
+        font-weight: 600;
+        border-radius: 8px;
+        padding: 5px 10px;
+        width: 30%;
+        cursor: pointer;
+      }
+      .detailDiv {
+        max-height: 0;
+        // overflow: hidden;
+        transition: max-height 0.5s ease-in-out;
+        .nameDiv {
+          .textAndError {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            .error {
+              color: red;
+              font-size: 12px;
+            }
+
+            .p5 {
+              color: rgba(0, 0, 0, 1);
+              font-size: 14px;
+              font-weight: 400;
+              margin-bottom: 3px;
+            }
+          }
+          .inputDiv {
+            display: flex;
+            align-items: center;
+            .nameDiv {
+              width: 50%;
+
+              input {
+                width: 75%;
+                padding: 15px 10px;
+                border: 1px solid rgba(144, 166, 123, 1);
+                font-size: 14px;
+                font-family: 400;
+                border-radius: 10px;
+              }
+              :focus {
+                outline: none;
+              }
+            }
+            .nameDivv {
+              width: 50%;
+              .textAndError {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                .error {
+                  color: red;
+                  font-size: 12px;
+                }
+
+                .p5 {
+                  color: rgba(0, 0, 0, 1);
+                  font-size: 14px;
+                  font-weight: 400;
+                  margin-bottom: 3px;
+                }
+              }
+              input {
+                width: 80%;
+                padding: 15px 10px;
+                border: 1px solid rgba(144, 166, 123, 1);
+                font-size: 14px;
+                font-family: 400;
+                border-radius: 10px;
+              }
+              :focus {
+                outline: none;
+              }
+              .css-1u9des2-indicatorSeparator {
+                background: none !important;
+              }
+              .css-b62m3t-container {
+                width: 88% !important;
+              }
+              .css-w9q2zk-Input2 {
+                color: red !important;
+              }
+              .css-13cymwt-control {
+                padding: 6px 10px;
+                border: 1px solid rgba(144, 166, 123, 1) !important;
+                border-radius: 10px !important;
+              }
+              :focus {
+                outline: none !important;
+              }
+            }
+          }
+        }
+      }
+      .detailDiv.show {
+        max-height:350px;
+      }
+      
+      .detailDiv.hide {
+        max-height: 0;
+        overflow: hidden;
+      }
+    }
     .nameDiv {
       padding: 5px 0;
-      .p5 {
-        color: rgb(0, 0, 0);
-        font-size: 14px;
-        font-weight: 400;
-        margin-bottom: 3px;
+      .textAndError {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        .error {
+          color: red;
+          font-size: 12px;
+        }
+
+        .p5 {
+          color: rgba(0, 0, 0, 1);
+          font-size: 14px;
+          font-weight: 400;
+          margin-bottom: 3px;
+        }
       }
       .inputDiv {
         display: flex;
@@ -81,6 +255,22 @@
     }
     .holiday {
       margin-top: 15px;
+      .textAndError {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        .error {
+          color: red;
+          font-size: 12px;
+        }
+
+        .p5 {
+          color: rgba(0, 0, 0, 1);
+          font-size: 14px;
+          font-weight: 400;
+          margin-bottom: 3px;
+        }
+      }
       input {
         width: 90%;
         padding: 15px 10px;
@@ -112,7 +302,7 @@
         font-weight: 700;
       }
     }
-    .saveBtnAE{
+    .saveBtnAE {
       display: flex;
       justify-content: flex-end;
       width: 93%;
@@ -127,7 +317,7 @@
         font-weight: 600;
         text-align: center;
         padding: 10px 0;
-        width:15%;
+        width: 15%;
         cursor: pointer;
       }
     }

@@ -8,7 +8,10 @@ const initialState = {
   reload: false,
   reloadOrder:false,
   reloadOrderBill: false,
-  reloadProductTable:false
+  reloadProductTable:false,
+  reloadEmployeeTable: false,
+  employeeData: [],
+  linesData:false
 };
 
 const authSlice = createSlice({
@@ -38,6 +41,15 @@ const authSlice = createSlice({
     },
     ReloadProductTable: (state,action) => {
       state.reloadProductTable = action.payload;
+    },
+    ReloadEmployeeTable: (state,action) => {
+      state.reloadEmployeeTable = action.payload;
+    },
+    EmployeeData: (state,action) => {
+      state.employeeData = action.payload;
+    },
+    LinesData: (state,action) => {
+      state.linesData = action.payload;
     }
   },
 });
@@ -50,7 +62,10 @@ export const {
   setReload,
   ReloadOrder,
   ReloadOrderBill,
-  ReloadProductTable
+  ReloadProductTable,
+  ReloadEmployeeTable,
+  EmployeeData,
+  LinesData
 } = authSlice.actions;
 
 export default authSlice.reducer;

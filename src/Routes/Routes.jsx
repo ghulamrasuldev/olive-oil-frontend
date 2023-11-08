@@ -14,7 +14,10 @@ import {
   authenticateUser,
   notAuthenticateUser,
 } from "../Redux/slice/authSlice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+
+
+
 const Dashboard = lazy(() => import("../Pages/Dashboard/dashboard"));
 const GettingThingDone = lazy(() =>
   import("../Pages/Dashboard/GettingThingsDone")
@@ -94,6 +97,11 @@ const OutParts = lazy(() =>
   import("../Pages/warehouseManagement/SpareParts/OutParts")
 );
 
+const ProductionLine=lazy(()=>import("../Pages/Setting/ProductionLine/index"))
+
+
+
+
 const AllRoutes = () => {
   const dispatch = useDispatch();
   useEffect(() => {
@@ -104,6 +112,8 @@ const AllRoutes = () => {
       dispatch(notAuthenticateUser());
     }
   }, []);
+const employeeData = useSelector((state) => state.auth.employeeData);
+
   return (
     <Routes>
       <Route element={<IsAuth />}>
@@ -149,7 +159,7 @@ const AllRoutes = () => {
             <Route path="employees" element={<Employees />}>
               <Route path="add-employee" element={<AddEmployee />} />
               <Route path="leave-request" element={<LeaveForm />} />
-              <Route path="profile" element={<Profile />} />
+              <Route path={`${employeeData.fname}/id/${employeeData.EmployeeId}`} element={<Profile />} />
             </Route>
             <Route path="attendance" element={<Attendance />} />
             <Route path="payroll" element={<Payroll />}>
@@ -179,6 +189,7 @@ const AllRoutes = () => {
           <Route path="communication" element={<Communication />} />
           <Route path="setting" element={<Setting />}>
             <Route path="add-spare-parts" element={<PartsForm />} />
+            <Route path="add-production-line" element={<ProductionLine />} />
           </Route>
         </Route>
       </Route>
