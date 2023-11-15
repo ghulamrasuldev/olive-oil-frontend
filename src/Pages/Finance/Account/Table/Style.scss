@@ -31,6 +31,12 @@
   cursor: pointer;
 }
 
+.css-1ygcj2i-MuiTableCell-root{
+  padding:16px!important;
+}
+
+
+
 .borHead1{
     border-top-right-radius: 10px;
   border-bottom-right-radius:10px;
@@ -41,15 +47,11 @@
     border-bottom-left-radius:10px;
 }
 .bor{
-    border-left:1px solid rgba(0, 0, 0, 0.34)!important;
+    border-right:1px solid rgba(0, 0, 0, 0.34)!important;
 }
 .lastCell {
   border-top-right-radius: 10px!important;
   border-bottom-right-radius: 10px!important;
-  border-left:1px solid rgba(0, 0, 0, 0.34)!important;
-  display: flex;
-  align-items: center;
-  justify-content:center;
   color: #327dfa!important;
 }
 .mainActions {

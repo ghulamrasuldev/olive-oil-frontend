@@ -24,7 +24,7 @@ const style = {
   padding: "15px 0",
 };
 
-export default function DeletePopUp({ circleIcon, id, url, reloadData }) {
+export default function DeletePopUp({ circleIcon, id, url, reloadData,message }) {
   console.log('id',id)
   const lightTheme = Theme();
   const [open, setOpen] = React.useState(false);
@@ -81,7 +81,7 @@ export default function DeletePopUp({ circleIcon, id, url, reloadData }) {
         <Fade in={open}>
           <Box sx={style}>
             <div className="deleteMain">
-              <p>Are you sure to delete this?</p>
+              <p>{message?`${message}`:'Are you sure to delete this?'}</p>
               <div className="buttons">
                 <button className="buttonCancel" onClick={handleClose}>
                   Cancel

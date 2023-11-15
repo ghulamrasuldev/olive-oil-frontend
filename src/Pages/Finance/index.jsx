@@ -11,7 +11,9 @@ const Finance = () => {
   const toggleBtn=useSelector((state)=>state.toggle.activeButtonIndexFinance)
     const handleButtonClick = (index) => {
       dispatch(setActiveButtonFinance(index))
-    };
+  };
+  
+  
   return (
     <div>
       <Helmet>

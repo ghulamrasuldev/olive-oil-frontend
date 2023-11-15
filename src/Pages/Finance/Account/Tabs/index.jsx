@@ -13,6 +13,8 @@ import { ErrorMessage, SuccessMessage } from "../../../../Helper/Message";
 // import apiService from "../../../Services/apiService";
 import { useDispatch, useSelector } from "react-redux";
 import { MdOutlineAddBox } from "react-icons/md";
+import apiService from "../../../../Services/apiService";
+import { TabsData } from "../../../../Redux/slice/authSlice";
 
 const style = {
   position: "absolute",
@@ -32,74 +34,143 @@ export default function AccountTab() {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const dispatch = useDispatch();
-  //   const lines = useSelector((state) => state.auth.linesData);
+  const tabsData = useSelector((state) => state.auth.tabsData);
   const [toggleDetail, setToggleDetails] = useState(false);
+
   const [formData, setFormData] = useState({
     tabName: "",
-    name: "",
-    id: "",
-    comment: "",
+    tabDetails: [],
+    currentTabDetail: { name: "", id: "", comment: "" },
   });
   const [formDataError, setFormDataError] = useState({
     tabName: "",
-    name: "",
-    id: "",
-    comment: "",
+    tabDetails: [],
+    currentTabDetail: { name: "", id: "", comment: "" },
   });
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    const pattern = /^[a-zA-Z]+/;
+    const pattern = /^[a-zA-Z\s,.-]+$/;
     const numbers = /^\d+$/;
     const updateError = (fieldName, regex, error) => {
       if (!regex.test(value)) {
-        setFormDataError({
-          ...formDataError,
-          [fieldName]: error,
+        setFormDataError((prev) => {
+          if (fieldName === "tabName") {
+            return {
+              ...prev,
+              [fieldName]: error,
+            };
+          } else {
+            return {
+              ...prev,
+              currentTabDetail: {
+                ...prev.currentTabDetail,
+                [fieldName]: error,
+              },
+            };
+          }
         });
       } else {
-        setFormDataError({ ...formDataError, [fieldName]: "" });
+        setFormDataError((prev) => {
+          if (fieldName === "tabName") {
+            return {
+              ...prev,
+              [fieldName]: "",
+            };
+          } else {
+            return {
+              ...prev,
+              currentTabDetail: {
+                ...prev.currentTabDetail,
+                [fieldName]: "",
+              },
+            };
+          }
+        });
       }
     };
 
     switch (name) {
       case "tabName":
         updateError("tabName", pattern, "it contains only alphabets");
+        setFormData((prev) => ({
+          ...prev,
+          [name]: value,
+        }));
         break;
       case "name":
         updateError("name", pattern, "it contains only alphabets");
+        setFormData((prev) => ({
+          ...prev,
+          currentTabDetail: {
+            ...prev.currentTabDetail,
+            [name]: value,
+          },
+        }));
         break;
       case "id":
         updateError("id", numbers, "it contains only numbers");
+        setFormData((prev) => ({
+          ...prev,
+          currentTabDetail: {
+            ...prev.currentTabDetail,
+            [name]: value,
+          },
+        }));
         break;
       case "comment":
         updateError("comment", pattern, "it contains only alphabets");
+        setFormData((prev) => ({
+          ...prev,
+          currentTabDetail: {
+            ...prev.currentTabDetail,
+            [name]: value,
+          },
+        }));
+        break;
+      default:
         break;
     }
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
+  };
+
+  const handleAddTabDetail = () => {
+    if (
+      formData.currentTabDetail.name.trim() !== "" ||
+      formData.currentTabDetail.id.trim() !== "" ||
+      formData.currentTabDetail.comment.trim() !== ""
+    ) {
+      setFormData((prev) => ({
+        ...prev,
+        tabDetails: [...(prev.tabDetails || []), { ...prev.currentTabDetail }],
+        currentTabDetail: { name: "", id: "", comment: "" },
+      }));
+      setFormDataError((prev) => ({
+        ...prev,
+        tabDetails: [
+          ...(prev.tabDetails || []),
+          { name: "", id: "", comment: "" },
+        ],
+      }));
+    }
   };
 
   const handleCancel = () => {
     emptyForm();
     handleClose();
+    setToggleDetails(false);
     navigation("/finance/Chart-accounts", { replace: true });
   };
 
   const emptyForm = () => {
     setFormData({
       tabName: "",
-      name: "",
-      id: "",
-      comment: "",
+      tabDetails: [],
+      currentTabDetail: { name: "", id: "", comment: "" },
     });
     setFormDataError({
       tabName: "",
-      name: "",
-      id: "",
-      comment: "",
+      tabDetails: [],
+      currentTabDetail: { name: "", id: "", comment: "" },
     });
   };
 
@@ -107,39 +178,140 @@ export default function AccountTab() {
     e.preventDefault();
     try {
       const authToken = localStorage.getItem("authToken");
-
-      const requiredField = ["tabName"];
       const fieldError = {};
-      requiredField.forEach((field) => {
-        if (!formData[field]) {
-          fieldError[field] = `${field} is required`;
-        }
-      });
+
+      if (!formData.tabName.trim()) {
+        fieldError.tabName = "Tab Name is Required";
+      }
+      // if (toggleDetail) {
+      //   const tabDetailsRequiredFields = ["name", "id", "comment"];
+
+      //   if (formData.tabDetails && formData.tabDetails.length > 0) {
+      //     formData.tabDetails.forEach((detail, index) => {
+      //       tabDetailsRequiredFields.forEach((field) => {
+      //         if (!detail[field].trim()) {
+      //           fieldError[field] = `${field} is required for tab details`;
+      //         }
+      //       });
+      //     });
+      //   } else {
+      //     fieldError.tabDetails = "field is required";
+      //   }
+      // if (formData.tabDetails && formData.tabDetails.length > 0) {
+      //   console.log("hererr");
+      //   formData.tabDetails.forEach((detail) => {
+      //     tabDetailsRequiredFields.forEach((field) => {
+      //       if (!detail[field].trim()) {
+      //         setFormDataError((prev) => ({
+      //           ...prev,
+      //           tabDetails: `${field} is required for tab details`,
+      //         }));
+      //       }
+      //     });
+      //   });
+      // } else {
+      //   console.log("122122");
+      //   setFormDataError((prev) => ({
+      //     ...prev,
+      //     tabDetails: "Tab details are required",
+      //   }));
+      // }
+      // }
+
+      setFormDataError(fieldError);
+
       if (Object.keys(fieldError).length > 0) {
-        setFormDataError((prev) => ({
-          ...prev,
-          ...fieldError,
-        }));
         return;
       }
-      console.log(formData);
-      //   const response = await apiService(
-      //     "POST",
-      //     "/order/create-production-line",
-      //     {
-      //       "x-usertoken": authToken,
-      //     },
-      //     formData
-      //   );
 
-      //   if (response.success) {
-      //     dispatch(LinesData(!lines));
-      //     SuccessMessage(response.message);
-      //     handleCancel();
-      //   } else {
-      //     ErrorMessage(response.message);
-      //     handleCancel();
-      //   }
+      if (
+        (formData.tabDetails && formData.tabDetails.length > 0) ||
+        (formData.currentTabDetail&&(formData.currentTabDetail.name||formData.currentTabDetail.id||formData.currentTabDetail.comment))
+      ) {
+        if (
+          formData.currentTabDetail.name.trim() !== "" ||
+          formData.currentTabDetail.id.trim() !== "" ||
+          formData.currentTabDetail.comment.trim() !== ""
+        ) {
+          // setFormData(async (prev) => {
+          //   const updatedState = {
+          //     ...prev,
+          //     tabDetails: [
+          //       ...(prev.tabDetails || []),
+          //       { ...prev.currentTabDetail },
+          //     ],
+          //     currentTabDetail: { name: "", id: "", comment: "" },
+          //   };
+
+          //   // console.log("Updated State:", updatedState);
+          //   console.log("oneee");
+
+          //   const response = await apiService(
+          //     "POST",
+          //     "/Finance/Account-tab",
+          //     {
+          //       "x-usertoken": authToken,
+          //     },
+          //     updatedState
+          //   );
+
+          //   if (response.success) {
+          //     // dispatch(LinesData(!lines));
+          //     SuccessMessage(response.message);
+          //     handleCancel();
+          //     return;
+          //   } else {
+          //     ErrorMessage(response.message);
+          //     handleCancel();
+          //   }
+          //   console.log('still in');
+          // });
+          const updatedState = {
+            ...formData,
+            tabDetails: [
+              ...(formData.tabDetails || []),
+              { ...formData.currentTabDetail },
+            ],
+            currentTabDetail: { name: "", id: "", comment: "" },
+          };
+
+          const response = await apiService(
+            "POST",
+            "/Finance/Account-tab",
+            {
+              "x-usertoken": authToken,
+            },
+            updatedState
+          );
+
+          if (response.success) {
+            dispatch(TabsData(!tabsData));
+            SuccessMessage(response.message);
+            handleCancel();
+          } else {
+            ErrorMessage(response.message);
+            handleCancel();
+          }
+        }
+      } else {
+        const response = await apiService(
+          "POST",
+          "/Finance/Account-tab",
+          {
+            "x-usertoken": authToken,
+          },
+          { tabName: formData.tabName,current:formData.currentTabDetail, toggleDiv: toggleDetail }
+        );
+
+        if (response.success) {
+          dispatch(TabsData(!tabsData));
+          SuccessMessage(response.message);
+          handleCancel();
+        } else {
+          ErrorMessage(response.message);
+          handleCancel();
+        }
+      }
     } catch (error) {
       console.log("apiError", error);
       ErrorMessage(error);
@@ -195,7 +367,7 @@ export default function AccountTab() {
                         <input
                           type="text"
                           name="tabName"
-                          placeholder="Assests"
+                          placeholder="Asset"
                           value={formData.tabName}
                           onChange={handleInputChange}
                         />
@@ -214,9 +386,9 @@ export default function AccountTab() {
                         <div className="nameDiv1">
                           <div className="textAndError">
                             <p className="p5">Name</p>
-                            {formDataError.name && (
+                            {formDataError.currentTabDetail?.name && (
                               <span className="error">
-                                {formDataError.name}
+                                {formDataError.currentTabDetail?.name}
                               </span>
                             )}
                           </div>
@@ -226,7 +398,7 @@ export default function AccountTab() {
                                 type="text"
                                 name="name"
                                 placeholder="Cash"
-                                value={formData.name}
+                                value={formData.currentTabDetail?.name}
                                 onChange={handleInputChange}
                               />
                             </div>
@@ -235,8 +407,10 @@ export default function AccountTab() {
                         <div className="nameDiv1">
                           <div className="textAndError">
                             <p className="p5">Id</p>
-                            {formDataError.id && (
-                              <span className="error">{formDataError.id}</span>
+                            {formDataError.currentTabDetail?.id && (
+                              <span className="error">
+                                {formDataError.currentTabDetail?.id}
+                              </span>
                             )}
                           </div>
                           <div className="inputDiv1">
@@ -245,19 +419,20 @@ export default function AccountTab() {
                                 type="text"
                                 name="id"
                                 placeholder="0000"
-                                value={formData.id}
+                                value={formData.currentTabDetail?.id}
                                 onChange={handleInputChange}
                               />
                             </div>
                           </div>
                         </div>
                       </div>
+
                       <div className="nameDiv1">
                         <div className="textAndError">
                           <p className="p5">Comment</p>
-                          {formDataError.comment && (
+                          {formDataError.currentTabDetail?.comment && (
                             <span className="error">
-                              {formDataError.comment}
+                              {formDataError.currentTabDetail?.comment}
                             </span>
                           )}
                         </div>
@@ -267,12 +442,19 @@ export default function AccountTab() {
                               type="text"
                               name="comment"
                               placeholder="comment"
-                              value={formData.comment}
+                              value={formData.currentTabDetail?.comment}
                               onChange={handleInputChange}
                             />
                           </div>
                         </div>
                       </div>
+                      {((formData.tabDetails &&
+                        formData.tabDetails.length > 0) ||
+                        (formData.currentTabDetail&&(formData.currentTabDetail.name||formData.currentTabDetail.id||formData.currentTabDetail.comment))) && (
+                        <p className="addMore" onClick={handleAddTabDetail}>
+                          Add More
+                        </p>
+                      )}
                     </div>
                   </div>
                 </div>

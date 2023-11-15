@@ -11,7 +11,9 @@ const initialState = {
   reloadProductTable:false,
   reloadEmployeeTable: false,
   employeeData: [],
-  linesData:false
+  linesData:false,
+  tabsData:false,
+  tabsDetail:false,
 };
 
 const authSlice = createSlice({
@@ -50,7 +52,13 @@ const authSlice = createSlice({
     },
     LinesData: (state,action) => {
       state.linesData = action.payload;
-    }
+    },
+    TabsData: (state,action) => {
+      state.tabsData = action.payload;
+    },
+    TabsDetail: (state,action) => {
+      state.tabsDetail = action.payload;
+    },
   },
 });
 
@@ -65,7 +73,9 @@ export const {
   ReloadProductTable,
   ReloadEmployeeTable,
   EmployeeData,
-  LinesData
+  LinesData,
+  TabsData,
+  TabsDetail
 } = authSlice.actions;
 
 export default authSlice.reducer;

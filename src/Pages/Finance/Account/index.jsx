@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./Style.scss";
 import { Link } from "react-router-dom";
 import Arrow from "../../../assets/icons/filldarrow.png";
@@ -12,6 +12,11 @@ import AccountForm from "./AccountForm";
 import CustomSearchInput from "../../../Components/Common/customSearch";
 import { accountTableData } from "../../../Components/Common/Table/constant";
 import AccountTab from "./Tabs";
+import apiService from "../../../Services/apiService";
+import DeletePopUp from "../../../Components/Common/DeletePopUp";
+import { Tooltip } from "@mui/material";
+import { useSelector } from "react-redux";
+import TabDetailCom from "./Tabs/InsideTab/InsideTab";
 
 const options = [
   { label: "action1", value: "action1" },
@@ -24,6 +29,42 @@ const Account = () => {
   const [showForm, setShowForm] = useState(false);
   const [active, setActive] = useState(true);
   const address = "/finance/Chart-accounts";
+  const [tabs, setTabs] = useState([]);
+  const [selectedTab, setSelectedTab] = useState(null);
+  const tabsData = useSelector((state) => state.auth.tabsData);
+
+  const getTabs = async () => {
+    try {
+      const response = await apiService(
+        "GET",
+        "/Finance/get/Account-tab",
+        {},
+        {}
+      );
+      if (response.success) {
+        setTabs(response.data);
+        if (response.data.length > 0) {
+          setSelectedTab(response.data[0]._id);
+        }
+      }
+    } catch (error) {
+      console.log("Error in getting tabs", error);
+    }
+  };
+
+  useEffect(() => {
+    getTabs();
+  }, [tabsData]);
+
+  const reloadData = () => {
+    setSelectedTab(null);
+    getTabs();
+  };
+
+  const handleTabClick = (tabId) => {
+    setSelectedTab(tabId);
+  };
+
   return (
     <div className="accountMain">
       <div className="div1">
@@ -35,15 +76,24 @@ const Account = () => {
       </div>
       <div className="tabsMain">
         <div className="tabs">
-        <p className="tab">Assest</p>
-        <p className="tab">Assest</p>
+          {tabs.map((tab, index) => (
+            <p
+              key={tab._id}
+              className={`tab ${
+                selectedTab === tab._id ? "selected" : "notSelected"
+              } ${index === 0 ? "borderClass" : ""}`}
+              onClick={() => handleTabClick(tab._id)}
+            >
+              {tab.tabName}
+            </p>
+          ))}
         </div>
         <div className="newTab">
-          <AccountTab/>
+          <AccountTab />
         </div>
       </div>
-      {/* <div className="div2">
-        <div className="filters">
+      <div className="div2">
+        {/* <div className="filters">
           <div className="filter">
             <div className="batchActionBtn">
               <div className="batchAction" onClick={() => setShow(!show)}>
@@ -69,15 +119,28 @@ const Account = () => {
             <img src={Printer} alt="printer" height={20} />
             <img src={Setting} alt="Setting" height={20} />
           </div>
-        </div>
+        </div> */}
         <div className="tableDiv">
+          <div className="actionDiv">
+            <DeletePopUp
+              id={selectedTab}
+              reloadData={reloadData}
+              url={"/Finance/delete-tab"}
+              message={"Are you sure to delete the whole tab?"}
+            />
+            
+            <TabDetailCom selectedTab={selectedTab} />
+          </div>
+          <div className="table">
           <TableCom
             searchVal={name}
             activeBtn={setActive}
             data={accountTableData}
-          />
+            selectedTab={selectedTab}
+            />
+            </div>
         </div>
-      </div> */}
+      </div>
     </div>
   );
 };

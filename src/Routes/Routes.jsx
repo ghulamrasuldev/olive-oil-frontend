@@ -15,9 +15,11 @@ import {
   notAuthenticateUser,
 } from "../Redux/slice/authSlice";
 import { useDispatch, useSelector } from "react-redux";
+// import TabDetailCom from "../Pages/Finance/Account/Tabs/InsideTab";
 
-
-
+const TabDetailCom = lazy(() =>
+  import("../Pages/Finance/Account/Tabs/InsideTab/InsideTab")
+);
 const Dashboard = lazy(() => import("../Pages/Dashboard/dashboard"));
 const GettingThingDone = lazy(() =>
   import("../Pages/Dashboard/GettingThingsDone")
@@ -97,11 +99,10 @@ const OutParts = lazy(() =>
   import("../Pages/warehouseManagement/SpareParts/OutParts")
 );
 
-const ProductionLine = lazy(() => import("../Pages/Setting/ProductionLine/index"))
-const AccountTab = lazy(() => import('../Pages/Finance/Account/Tabs/index'));
-
-
-
+const ProductionLine = lazy(() =>
+  import("../Pages/Setting/ProductionLine/index")
+);
+const AccountTab = lazy(() => import("../Pages/Finance/Account/Tabs/index"));
 
 const AllRoutes = () => {
   const dispatch = useDispatch();
@@ -113,7 +114,7 @@ const AllRoutes = () => {
       dispatch(notAuthenticateUser());
     }
   }, []);
-const employeeData = useSelector((state) => state.auth.employeeData);
+  const employeeData = useSelector((state) => state.auth.employeeData);
 
   return (
     <Routes>
@@ -160,7 +161,10 @@ const employeeData = useSelector((state) => state.auth.employeeData);
             <Route path="employees" element={<Employees />}>
               <Route path="add-employee" element={<AddEmployee />} />
               <Route path="leave-request" element={<LeaveForm />} />
-              <Route path={`${employeeData.fname}/id/${employeeData.EmployeeId}`} element={<Profile />} />
+              <Route
+                path={`${employeeData.fname}/id/${employeeData.EmployeeId}`}
+                element={<Profile />}
+              />
             </Route>
             <Route path="attendance" element={<Attendance />} />
             <Route path="payroll" element={<Payroll />}>
@@ -175,7 +179,10 @@ const employeeData = useSelector((state) => state.auth.employeeData);
             <Route path="chart-accounts" element={<Account />}>
               <Route path="new-entry" element={<AccountForm />} />
               <Route path="add-account-tab" element={<AccountTab />} />
-
+              <Route
+                path="add-account-tab-details"
+                element={<TabDetailCom />}
+              />
             </Route>
             <Route path="ledger" element={<Ledger />} />
           </Route>

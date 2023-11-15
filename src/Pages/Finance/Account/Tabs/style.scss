@@ -17,7 +17,7 @@
     }
     .addIcon {
       color: white;
-      margin-right:1px;
+      margin-right: 1px;
     }
   }
 }
@@ -104,14 +104,27 @@
         cursor: pointer;
       }
       .show {
-        height: 150px;
-        transition: all 0.5s;
-        // overflow: hidden;
+        height: 200px;
+        overflow: hidden;
+        transition: height 0.5s ease; 
+        .addMore {
+          padding: 5px 15px;
+          text-align: center;
+          border: none;
+          border-radius: 8px;
+          background-color: rgba(144, 166, 123, 1);
+          font-size: 18px;
+          font-weight: 700;
+          margin:10px 5px;
+          color: white;
+          cursor: pointer;
+          width:19%;
+        }
       }
       .hide {
         height: 0px;
         overflow: hidden;
-        transition: all 0.5s;
+        transition: height 0.5s ease; 
       }
       .mainDetail {
         .detailForm {
