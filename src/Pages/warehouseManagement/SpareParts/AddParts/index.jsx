@@ -197,7 +197,7 @@ export default function AddParts() {
   };
 
   return (
-    <div className="partsMain">
+    <div className="partsMainW">
       <Tooltip title="Add New" position="top">
         <Link to="add-parts" onClick={() => handleOpen()}>
           + Add New
