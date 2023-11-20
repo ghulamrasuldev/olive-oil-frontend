@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import "./Style.scss";
 import { IoMdClose } from "react-icons/io";
 import Tick from "../../../assets/icons/Tick.png";
@@ -18,12 +18,12 @@ import {
   closeCustomerForm,
 } from "../../../Redux/slice/handleshortcuts";
 import { SuccessMessage, ErrorMessage } from "../../../Helper/Message";
-import  apiService  from "../../../Services/apiService";
+import apiService from "../../../Services/apiService";
 import { setReload } from "../../../Redux/slice/authSlice";
 
 const options = [
-  { value: "Gold", label: "Gold" },
   { value: "Silver", label: "Silver" },
+  { value: "Gold", label: "Gold" },
   { value: "Platinum", label: "Platinum" },
 ];
 
@@ -47,7 +47,7 @@ const style = {
   },
 };
 
-export default function CustomerForm({ address,authToken }) {
+export default function CustomerForm({ address, authToken }) {
   const lightTheme = Theme();
   const fileInputRef = useRef(null);
   const navigate = useNavigate();
@@ -55,7 +55,7 @@ export default function CustomerForm({ address,authToken }) {
   const dispatch = useDispatch();
   const defaultValue = options[0];
   const [profile, setProfile] = useState();
-  const reload=useSelector((state)=>state.auth.reload)
+  const reload = useSelector((state) => state.auth.reload);
 
   const open = useSelector((state) => state.shortcuts.isOpenC);
   const [formErrors, setFormErrors] = useState({});
@@ -67,9 +67,9 @@ export default function CustomerForm({ address,authToken }) {
     phoneNumber: "",
     oilProcessed: "",
     customerType: "",
-    loyaltyProgram: "",
+    loyaltyProgram: "Silver",
   });
-
+ 
   const handleProfileClick = () => {
     profileImg.current.click();
   };
@@ -82,13 +82,25 @@ export default function CustomerForm({ address,authToken }) {
   };
   const handleCancel = () => {
     dispatch(closeCustomerForm());
+    Empty();
     navigate(`${address}`, { replace: true });
+  };
+  const Empty = () => {
+    setFormData({
+      firstName: "",
+      city: "",
+      nationalId: "",
+      orderId: "",
+      phoneNumber: "",
+      oilProcessed: "",
+      customerType: "",
+      loyaltyProgram: "",
+    });
   };
   const handleOpenForm = () => {
     dispatch(openCustomerForm());
   };
 
-  
   const handleInputChange = (event) => {
     const { name, value } = event.target;
 
@@ -165,7 +177,7 @@ export default function CustomerForm({ address,authToken }) {
   const handleSelectChange = (selectedOption) => {
     setFormData({
       ...formData,
-      loyaltyProgram: selectedOption.value, // Update the loyaltyProgram value
+      loyaltyProgram: selectedOption.value, 
     });
   };
   const handlePhoneNumberChange = (value) => {
@@ -176,7 +188,6 @@ export default function CustomerForm({ address,authToken }) {
   };
 
   const CreateCustomer = async () => {
-    // Check if any required field is empty
     if (
       !formData.firstName ||
       !formData.city ||
@@ -193,18 +204,18 @@ export default function CustomerForm({ address,authToken }) {
       if (!formData.oilProcessed) emptyFields.push("Oil Processed");
       if (!formData.customerType) emptyFields.push("Customer Type");
 
-      // Display an error message for empty fields
       ErrorMessage(
         `Please fill in the following fields: ${emptyFields.join(", ")}`
       );
       return;
     }
 
-    // Check for validation errors in formErrors state
     if (Object.values(formErrors).some((error) => error)) {
       console.log("Validation errors:", formErrors.error);
       return;
     }
+
+
 
     try {
       const response = await apiService(
@@ -213,8 +224,6 @@ export default function CustomerForm({ address,authToken }) {
         {"x-usertoken":authToken},
         formData
         );
-        // console.log(">>>>",formData)
-      // console.log(response)
       if (response.success) {
         setFormData({
           firstName: "",
@@ -235,7 +244,7 @@ export default function CustomerForm({ address,authToken }) {
       }
     } catch (error) {
       console.error("Request failed:", error);
-      ErrorMessage(`Api Error ${error}`)
+      ErrorMessage(`Api Error ${error}`);
     }
   };
 
@@ -388,7 +397,6 @@ export default function CustomerForm({ address,authToken }) {
                   <div className="selectDiv">
                     <p className="p3">Loyalty Program*</p>
                     <Select
-                     
                       value={options.find(
                         (option) => option.value === formData.loyaltyProgram
                       )}
