@@ -1,20 +1,31 @@
-.mainSetting{
-    padding:25px;
-    .btnDiv{
-        display: flex;
+.mainSetting {
+  padding: 25px;
+  .css-1elwnq4-MuiPaper-root-MuiAccordion-root {
+    &:before {
+      display: none !important;
+    }
+  }
+  .MuiAccordionDetails-root {
+    .sellableDiv {
+      display: flex;
+      align-items: center;
+    }
+  }
 
-    }
-    .productTable{
-        margin:10px 0;
-        background-color: white;
-        padding:15px;
-        border-radius:10px;
-        height:400px;
-        overflow-y: auto;
-    }
-    .pt{
-        margin:15px 0;
-        font-size:18px;
-        font-weight: 600;
-    }
+  .btnDiv {
+    display: flex;
+  }
+  .productTable {
+    margin: 10px 0;
+    background-color: white;
+    padding: 15px;
+    border-radius: 10px;
+    height: 400px;
+    overflow-y: auto;
+  }
+  .pt {
+    margin: 15px 0;
+    font-size: 18px;
+    font-weight: 600;
+  }
 }
