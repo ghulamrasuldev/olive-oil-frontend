@@ -25,7 +25,6 @@ const style = {
 };
 
 export default function DeletePopUp({ circleIcon, id, url, reloadData,message }) {
-  console.log('id',id)
   const lightTheme = Theme();
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
