@@ -20,7 +20,7 @@ import EditStock from "../../../Pages/warehouseManagement/EditStock";
 import apiService from "../../../Services/apiService";
 import { ErrorMessage } from "../../../Helper/Message";
 import Loading from "../../../Components/Common/Loading";
-import { setPartData } from "../../../Redux/slice/sparePart";
+import { setPartData, setSellableParts } from "../../../Redux/slice/sparePart";
 
 const ProductTable = () => {
   const lightTheme = Theme();
@@ -61,7 +61,10 @@ const ProductTable = () => {
     }
   };
 
-  useEffect(() => {}, [rows]);
+  useEffect(() => {
+    const sellableParts = rows.filter((item) => item.Sellable === "yes");
+    dispatch(setSellableParts(sellableParts));
+  }, [rows]);
 
   useEffect(() => {
     getProduct();
@@ -71,79 +74,34 @@ const ProductTable = () => {
   //     searchFilter();
   //   }, [searchVal]);
 
- 
-
-  const notRequired = ["_id", "__v", "date"];
+  const notRequired = ["_id", "__v"];
   const allTableHeaders = Object.keys(rows[0] || {});
   const tableHeaders = allTableHeaders.filter(
     (field) => !notRequired.includes(field)
   );
 
- 
   return (
     <>
       {loading ? (
         <Loading />
       ) : (
-    <TableContainer className="productTableS"> 
-        <Table sx={{ minWidth: 650 }} aria-label="simple table" >
-          <TableHead>
-            <TableRow>
-              {tableHeaders.map((header, index) => (
-                <TableCell
-                  key={index}
-                  style={{
-                    borderTopLeftRadius: index === 0 ? "10px" : "0px",
-                    borderBottomLeftRadius: index === 0 ? "10px" : "0px",
-                    borderTopRightRadius:
-                      index === tableHeaders.length ? "10px" : "0px",
-                    borderBottomRightRadius:
-                      index === tableHeaders.length ? "10px" : "0px",
-                  }}
-                >
-                  {header}
-                </TableCell>
-              ))}
-              <TableCell
-                align="right"
-                style={{
-                  borderTopRightRadius: "10px",
-                  borderBottomRightRadius: "10px",
-                }}
-              >
-                {/* Actions */}
-              </TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {filterData.map((row, index) => (
-              <TableRow
-                key={row.index}
-                style={{
-                  borderRadius: "10px",
-                }}
-                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-              >
-                {tableHeaders.map((cellValue, cellIndex) => (
+        <TableContainer className="productTableS">
+          <Table sx={{ minWidth: 650 }} aria-label="simple table">
+            <TableHead>
+              <TableRow>
+                {tableHeaders.map((header, index) => (
                   <TableCell
-                    key={cellIndex}
-                    align="right"
+                    key={index}
                     style={{
-                      borderTopLeftRadius: cellIndex === 0 ? "10px" : "0px",
-                      borderBottomLeftRadius: cellIndex === 0 ? "10px" : "0px",
+                      borderTopLeftRadius: index === 0 ? "10px" : "0px",
+                      borderBottomLeftRadius: index === 0 ? "10px" : "0px",
+                      borderTopRightRadius:
+                        index === tableHeaders.length ? "10px" : "0px",
+                      borderBottomRightRadius:
+                        index === tableHeaders.length ? "10px" : "0px",
                     }}
                   >
-                    {cellValue === "image" ? (
-                      <img src={`${row.image}`} alt="Image" height={30} />
-                    ) : cellValue === "Quantity" ? (
-                      row["Quantity"] ? (
-                        row["Quantity"]
-                      ) : (
-                        "Null"
-                      )
-                    ) : (
-                      row[cellValue]
-                    )}
+                    {header}
                   </TableCell>
                 ))}
                 <TableCell
@@ -153,7 +111,56 @@ const ProductTable = () => {
                     borderBottomRightRadius: "10px",
                   }}
                 >
-                  {/* <div className="mainActionsProduct">
+                  {/* Actions */}
+                </TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {filterData.map((row, index) => (
+                <TableRow
+                  key={row.index}
+                  style={{
+                    borderRadius: "10px",
+                  }}
+                  sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                >
+                  {tableHeaders.map((cellValue, cellIndex) => (
+                    <TableCell
+                      key={cellIndex}
+                      align="right"
+                      style={{
+                        borderTopLeftRadius: cellIndex === 0 ? "10px" : "0px",
+                        borderBottomLeftRadius:
+                          cellIndex === 0 ? "10px" : "0px",
+                      }}
+                    >
+                      {cellValue === "image" ? (
+                        <img src={`${row.image}`} alt="Image" height={30} />
+                      ) : cellValue === "Quantity" ? (
+                        row["Quantity"] ? (
+                          row["Quantity"]
+                        ) : (
+                          "Null"
+                        )
+                      ) : cellValue === "Sellable" ? (
+                        row["Sellable"] ? (
+                          row["Sellable"]
+                        ) : (
+                          "Nill"
+                        )
+                      ) :cellValue==='Price'?(row['Price']?(`${row['Price']}/${row['Unit']}`):('--')): (
+                        row[cellValue]
+                      )}
+                    </TableCell>
+                  ))}
+                  <TableCell
+                    align="right"
+                    style={{
+                      borderTopRightRadius: "10px",
+                      borderBottomRightRadius: "10px",
+                    }}
+                  >
+                    {/* <div className="mainActionsProduct">
                     
 
                     <DeletePopUp
@@ -165,15 +172,14 @@ const ProductTable = () => {
                       reloadData={reloadData}
                     />
                   </div> */}
-                </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
       )}
     </>
-      
   );
 };
 
