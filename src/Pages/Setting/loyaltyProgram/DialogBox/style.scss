@@ -1,0 +1,46 @@
+.maindialogBox {
+  .textAndClose {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    .p1 {
+      font-size: 16px;
+      font-weight: 600;
+      span {
+        color: rgba(144, 166, 123, 1);
+      }
+    }
+    .icon {
+      cursor: pointer;
+    }
+  }
+  .form {
+    margin: 10px 0;
+    display: flex;
+    flex-direction: column;
+    .error {
+      font-size: 12px;
+      font-weight: 600;
+      color: red;
+    }
+    input {
+      width: 70%;
+      border: 1px solid rgba(144, 166, 123, 1);
+      outline: none;
+      padding: 10px;
+      border-radius: 10px;
+      margin-bottom: 10px;
+    }
+    button {
+      border: 1px solid rgba(144, 166, 123, 1);
+      padding: 5px;
+      font-weight: 600;
+      width: 30%;
+      border-radius: 10px;
+      cursor: pointer;
+      &:hover {
+        transform: scale(1.03);
+      }
+    }
+  }
+}

@@ -1,0 +1,30 @@
+.loyaltyProgramMain{
+    display: flex;
+    justify-content: space-evenly;
+    .div1{
+        box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
+        // box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+        border-radius:10px;
+        padding:5px 10px;
+        width:15%;
+        .iconDiv{
+            display: flex;
+            justify-content: flex-end;
+            .icon{
+                cursor: pointer;
+                color:rgb(60, 126, 156);
+            }
+        }
+        .textDiv{
+            p{
+                font-size: 17px;
+                font-weight: 600;
+                spam{
+                    font-size:13px;
+                    color: rgb(60, 126, 156);
+                    margin-left:5px;
+                }
+            }
+        }
+    }
+}
