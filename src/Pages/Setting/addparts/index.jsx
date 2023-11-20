@@ -14,9 +14,7 @@ import { ErrorMessage, SuccessMessage } from "../../../Helper/Message";
 import apiService from "../../../Services/apiService";
 import { useDispatch, useSelector } from "react-redux";
 import { ReloadProductTable } from "../../../Redux/slice/authSlice";
-
-
-
+import { Radio, RadioGroup, FormControlLabel } from "@mui/material";
 
 const style = {
   position: "absolute",
@@ -55,6 +53,7 @@ export default function PartsForm() {
   const reloadProductTable = useSelector(
     (state) => state.auth.reloadProductTable
   );
+
   const [selectedImageUrl, setSelectedImageUrl] = useState("");
   const LoginAdmin = localStorage.getItem("userName");
   const [formData, setFormData] = useState({
@@ -63,13 +62,13 @@ export default function PartsForm() {
     selectedImg: "",
     quantity: "",
     admin: LoginAdmin,
+    sellable: "",
   });
   const [formDataError, setFormDataError] = useState({
     partName: "",
     unit: "",
+    sellable: "",
   });
-
- 
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -151,6 +150,7 @@ export default function PartsForm() {
       unit: "",
       selectedImg: "",
       quantity: "",
+      sellable:"",
     });
     setFormDataError({
       partName: "",
@@ -162,7 +162,7 @@ export default function PartsForm() {
     e.preventDefault();
     try {
       const authToken = localStorage.getItem("authToken");
-      const requiredField = ["partName", "unit"];
+      const requiredField = ["partName", "unit", "sellable"];
       const fieldError = {};
       requiredField.forEach((field) => {
         if (!formData[field]) {
@@ -181,6 +181,7 @@ export default function PartsForm() {
       DataToSend.append("unit", formData.unit);
       DataToSend.append("quantity", formData.quantity);
       DataToSend.append("admin", formData.admin);
+      DataToSend.append("sellable", formData.sellable);
       if (formData.selectedImg) {
         DataToSend.append("image", formData.selectedImg);
       }
@@ -208,10 +209,10 @@ export default function PartsForm() {
   };
 
   return (
-    <div className="partsMain">
+    <div className="partsMainS">
       <Tooltip title="Add New" position="top">
         <Link to="add-spare-parts" onClick={() => handleOpen()}>
-          + Spare Parts
+          + Add Inventory
         </Link>
       </Tooltip>
       <Modal
@@ -229,7 +230,7 @@ export default function PartsForm() {
       >
         <Fade in={open}>
           <Box sx={style}>
-            <div className="partsFormMain">
+            <div className="partsFormMainS">
               <div className="formDiv1">
                 <p className="p1">Add Spare Parts</p>
                 <IoMdClose
@@ -280,40 +281,69 @@ export default function PartsForm() {
                     </div>
                   </div>
                 </div>
-                <div className="selectedImgDiv">
-                  <div className="picDiv">
-                    <p className="p6">Upload Your Picture*</p>
-                    <div className="imgDiv">
-                      <p>{formData.selectedImg.name}</p>
-                      <img
-                        src={Camera}
-                        alt="camera"
-                        onClick={handleProfileClick}
-                      />
+                <div className="mainImgAndSell">
+                  <div className="selectedImgDiv">
+                    <div className="picDiv">
+                      <p className="p6">Upload Your Picture*</p>
+                      <div className="imgDiv">
+                        <p>{formData.selectedImg.name}</p>
+                        <img
+                          src={Camera}
+                          alt="camera"
+                          onClick={handleProfileClick}
+                        />
 
-                      <input
-                        type="file"
-                        style={{ display: "none" }}
-                        onChange={handleProfileImage}
-                        ref={partImg}
-                        accept="image/*"
-                      />
+                        <input
+                          type="file"
+                          style={{ display: "none" }}
+                          onChange={handleProfileImage}
+                          ref={partImg}
+                          accept="image/*"
+                        />
+                      </div>
                     </div>
                   </div>
-                  <div className="selectedImg">
-                    {selectedImageUrl && (
-                      <div style={{ position: "relative" }}>
-                        <img src={selectedImageUrl} alt="camera" />
-                        <span
-                          className="removeIcon"
-                          onClick={removeSelectedImage}
-                        >
-                          <AiOutlineCloseCircle size={20} color="red" />
-                        </span>
-                      </div>
-                    )}
+                  <div className="sellable">
+                    <div className="textAndError">
+                      <p className="p5">Sellable?</p>
+                      {formDataError.sellable && (
+                        <span className="error">{formDataError.sellable}</span>
+                      )}
+                    </div>
+                    <RadioGroup
+                      aria-label="sellable"
+                      name="sellable"
+                      value={formData.sellable}
+                      onChange={handleInputChange}
+                      row
+                      className="radioGroup"
+                    >
+                      <FormControlLabel
+                        value="yes"
+                        control={<Radio />}
+                        label="Yes"
+                      />
+                      <FormControlLabel
+                        value="no"
+                        control={<Radio />}
+                        label="No"
+                      />
+                    </RadioGroup>
                   </div>
                 </div>
+                <div className="selectedImg">
+                      {selectedImageUrl && (
+                        <div style={{ position: "relative" }}>
+                          <img src={selectedImageUrl} alt="camera" />
+                          <span
+                            className="removeIcon"
+                            onClick={removeSelectedImage}
+                          >
+                            <AiOutlineCloseCircle size={20} color="red" />
+                          </span>
+                        </div>
+                      )}
+                    </div>
                 <div className="buttons1">
                   <p className="btnClose1" onClick={handleCancel}>
                     Close
